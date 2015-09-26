@@ -49,8 +49,7 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
         holder.contactName.setText(contact.getName());
         //TODO: add image here
 
-        List<String> labelStrings = contact.getLabels();
-        holder.mAdapter.addLabels(labelStrings);
+        holder.mAdapter.addLabels(contact.labelList());
         holder.mAdapter.notifyDataSetChanged();
         //holder.contactLabels.setText(contact.getLabels().toString());
 //        holder.contactImage.setImage(null);

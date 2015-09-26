@@ -28,7 +28,7 @@ public class Contact extends Model {
         return getMany(Meeting.class, "Meeting");
     }
     public List<String> labelList() {
-        List<Label> labels=getMany(Label.class, "Label");
+        List<Label> labels=getMany(Label.class, "Contact");
         List<String> labelList=new ArrayList<>();
         for (Label label:labels) {
             labelList.add(label.Title);
