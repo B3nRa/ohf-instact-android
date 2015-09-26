@@ -161,6 +161,10 @@ public class LoginActivity extends AppCompatActivity {
         try {
             Contact contact = new Contact(userName, xing, p2pId);
             contact.save();
+            for (String label :tags){
+                Label l=new Label(label,contact);
+                l.save();
+            }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }

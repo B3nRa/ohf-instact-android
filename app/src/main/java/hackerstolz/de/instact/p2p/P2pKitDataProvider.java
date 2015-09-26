@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -18,7 +21,9 @@ import ch.uepaa.p2pkit.discovery.InfoTooLongException;
 import ch.uepaa.p2pkit.discovery.P2pListener;
 import ch.uepaa.p2pkit.discovery.Peer;
 import ch.uepaa.p2pkit.discovery.PeersContract;
+import ch.uepaa.p2pkit.messaging.MessageListener;
 import hackerstolz.de.instact.data.Contact;
+import hackerstolz.de.instact.data.Label;
 
 /**
  * Created by muszy on 26-Sep-15.
@@ -27,9 +32,25 @@ public class P2pKitDataProvider {
 
     private static final String TAG = P2pKitDataProvider.class.getName();
     private static final String P2P_KIT_APP_KEY = "eyJzaWduYXR1cmUiOiI0cDRjZzFqUENPQm1BRTFQTis3dm1PZjBiQ0hHU2lueVNWZEdaVlNSUTVPVzJMRENQMjA5S01YSzdueTJKdGRPRXVmc213MmVGZ3NrVEJXakFlM2F1eTdIQklNTXkrMC81RitwbTlBL0p5QjJhVkxmZEZNaEd3UWo2c3EyRDZ4dWRhUkdxODJzNkRaeDFWVnFHN3pwWlpKNHZMU2xrcUVTLytWUUtXWGE3ODA9IiwiYXBwSWQiOjEyNjAsInZhbGlkVW50aWwiOjE2Nzk0LCJhcHBVVVVJRCI6IkMxNzcxQThFLTk0ODYtNDNFRS05NTgxLThBMDUwMzZFMUY4RCJ9";
-
+    private static final String TYPE_LABELS="LABELS";
     private Context mContext;
+    private static Gson gson = new Gson();
     private ConnectionListener mConnectionListener;
+    private final MessageListener mMessageListener = new MessageListener() {
+        @Override
+        public void onStateChanged(int state) {
+            Log.d(TAG, "MessageListener | State changed: " + state);
+        }
+
+        @Override
+        public void onMessageReceived(long timestamp, UUID origin, String type, byte[] message) {
+            if(type==TYPE_LABELS){
+                Contact.get(origin.toString());
+
+            }
+            Log.d(TAG, "MessageListener | Message received: From=" + origin + " type=" + type + " message=" + new String(message));
+        }
+    };
 
     public P2pKitDataProvider(Context context, ConnectionListener connectionListener) {
         mContext = context;
@@ -103,11 +124,13 @@ public class P2pKitDataProvider {
             @Override
             public void onPeerDiscovered(final Peer peer) {
                 String info = "NO_INFO";
-                if(peer.getDiscoveryInfo() != null && peer.getDiscoveryInfo().length > 0) {
+                if (peer.getDiscoveryInfo() != null && peer.getDiscoveryInfo().length > 0) {
                     info = new String(peer.getDiscoveryInfo());
                 }
-                Contact contact= new Contact(info,"xing",peer.getNodeId().toString());
+                Contact contact = new Contact(info, "xing", peer.getNodeId().toString());
                 contact.save();
+                boolean forwarded = KitClient.getInstance(mContext).getMessageServices().sendMessage(peer.getNodeId(), "text/plain", gson.toJson(Contact.get("ME").labelList()).getBytes());
+
                 Log.d(TAG, "P2pListener | Peer discovered: " + peer.getNodeId() + " with info: " + info);
             }
 
@@ -119,12 +142,13 @@ public class P2pKitDataProvider {
             @Override
             public void onPeerUpdatedDiscoveryInfo(Peer peer) {
                 String info = "NO_INFO";
-                if(peer.getDiscoveryInfo() != null && peer.getDiscoveryInfo().length > 0) {
+                if (peer.getDiscoveryInfo() != null && peer.getDiscoveryInfo().length > 0) {
                     info = new String(peer.getDiscoveryInfo());
                 }
                 Log.d(TAG, "P2pListener | Peer updated: " + peer.getNodeId() + " with new info: " + info);
             }
         });
+        KitClient.getInstance(mContext).getMessageServices().addListener(mMessageListener);
     }
 
     private void setDiscoveryInfo() {
