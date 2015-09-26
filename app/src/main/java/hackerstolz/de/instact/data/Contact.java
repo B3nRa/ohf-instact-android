@@ -91,6 +91,61 @@ public class Contact {
         }
         return all;
     }
+    public static List<Contact> findLabels(long id) throws Exception {
+        if (mDbHelper==null){
+            throw new Exception("Database not connected mdHelper");
+        }
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+// Define a projection that specifies which columns from the database
+// you will actually use after this query.
+        String[] projection = {
+                ContactContract.ContactEntry._ID,
+                ContactContract.ContactEntry.COLUMN_NAME_NAME,
+                ContactContract.ContactEntry.COLUMN_NAME_P2P_ID,
+                ContactContract.ContactEntry.COLUMN_NAME_P2P_ID,
+
+        };
+
+// How you want the results sorted in the resulting Cursor
+        String sortOrder ="";
+
+
+        Cursor cursor = db.query(
+                ContactContract.ContactEntry.TABLE_NAME,  // The table to query
+                projection,                               // The columns to return
+                null,                                // The columns for the WHERE clause
+                null,                            // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                sortOrder                                 // The sort order
+        );
+
+        cursor.moveToFirst();
+        List<Contact> all=new ArrayList<Contact>();
+        int i=0;
+        while (!cursor.isAfterLast())  {
+            Long cid = cursor.getLong(
+                    cursor.getColumnIndexOrThrow(ContactContract.ContactEntry.COLUMN_NAME_CONTACT_ID)
+            );
+            String name = cursor.getString(
+                    cursor.getColumnIndexOrThrow(ContactContract.ContactEntry.COLUMN_NAME_NAME)
+            );
+            String p2pId = cursor.getString(
+                    cursor.getColumnIndexOrThrow(ContactContract.ContactEntry.COLUMN_NAME_P2P_ID)
+            );
+            String xing = cursor.getString(
+                    cursor.getColumnIndexOrThrow(ContactContract.ContactEntry.COLUMN_NAME_XING)
+            );
+
+            List labels=new ArrayList();
+            all.add(new Contact(cid,name,xing,p2pId,labels,false));
+            i++;
+            cursor.moveToNext();
+        }
+        return all;
+    }
+
 
     public Contact(long id) throws Exception {
         if (mDbHelper==null){
