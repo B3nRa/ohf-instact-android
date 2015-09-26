@@ -104,6 +104,10 @@ public class LoginActivity extends AppCompatActivity {
             Contact contact = new Contact(userName, xing, p2pId);
             contact.save();
             ImageUtils.saveUserImage(userAvatar, p2pId);
+            for (String label :tags){
+                Label l=new Label(label,contact);
+                l.save();
+            }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
