@@ -22,14 +22,14 @@ public class Contact {
     static Context context;
     static ContactDbHelper mDbHelper = new ContactDbHelper(context);
     private List<String> labels=new ArrayList<String>();
-    Contact(String name,String xing,String p2pId,List <String> labels) throws Exception {
+    public Contact(String name,String xing,String p2pId,List <String> labels) throws Exception {
         this.name=name;
         this.xing=xing;
         this.p2pId=p2pId;
         this.labels=labels;
         this.save();
     }
-    Contact(long id) throws Exception {
+    public Contact(long id) throws Exception {
         if (mDbHelper==null){
             throw new Exception("Database not connected mdHelper");
         }
