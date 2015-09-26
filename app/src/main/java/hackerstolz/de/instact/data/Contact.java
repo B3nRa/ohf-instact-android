@@ -91,6 +91,10 @@ public class Contact {
                 ContactContract.ContactEntry.TABLE_NAME,
                 null,
                 values);
+        deleteAllLabel();
+        for (int i = 0; i <labels.size(); i++) {
+            saveLabel(labels.get(i));
+        }
     }
     private void saveLabel(String name) throws Exception {
         if (mDbHelper==null){
@@ -110,6 +114,25 @@ public class Contact {
                 null,
                 values);
     }
+    public void addMeeting() throws Exception {
+        if (mDbHelper==null){
+            throw new Exception("Database not connected Mdhelper");
+        }
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+// Create a new map of values, where column names are the keys
+        ContentValues values = new ContentValues();
+        values.put(MeetingContract.MeetingEntry.COLUMN_NAME_CONTACT_ID, id);
+        values.put(MeetingContract.MeetingEntry.COLUMN_NAME_TIME, "date('now')");
+
+
+// Insert the new row, returning the primary key value of the new row
+        id = db.insert(
+                MeetingContract.MeetingEntry.TABLE_NAME,
+                null,
+                values);
+    }
+
     private void deleteAllLabel() throws Exception {
         if (mDbHelper==null){
             throw new Exception("Database not connected Mdhelper");
