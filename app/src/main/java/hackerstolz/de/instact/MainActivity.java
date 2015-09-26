@@ -21,6 +21,7 @@ import android.view.WindowManager;
 
 import com.astuetz.PagerSlidingTabStrip;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
         p2pDataProvider.init();
 
-        Contact.mDbHelper = new ContactDbHelper(this);
+
 
         setup();
     }
@@ -199,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
 
             List<Contact> contacts = null;
             try {
-                contacts = Contact.find();
+                contacts = Contact.getAll();
             } catch (Exception e) {
                 System.err.println(e.getMessage());
                 contacts = new ArrayList<>();

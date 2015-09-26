@@ -44,7 +44,7 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
 //        holder.cardView.setText(mDataset[position]);
         Contact contact = mContacts.get(position);
         holder.contactName.setText(contact.getName());
-        holder.contactLabels.setText(contact.getLabels().toString());
+        //holder.contactLabels.setText(contact.getLabels().toString());
 //        holder.contactImage.setImage(null);
     }
 
