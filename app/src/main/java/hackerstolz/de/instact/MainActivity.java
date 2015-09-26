@@ -191,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onConnected() {
                     Log.d(TAG, "p2p kit connected");
+                    addP2pListener();
                 }
                 @Override
                 public void onConnectionSuspended() {
@@ -212,6 +213,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void addP2pListener() {
+        Log.d(TAG, "add p2p listener");
         KitClient.getInstance(MainActivity.this).getDiscoveryServices().addListener(new P2pListener() {
             @Override
             public void onStateChanged(int i) {
