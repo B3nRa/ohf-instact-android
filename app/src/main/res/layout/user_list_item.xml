@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/tools"
-    card_view:cardCornerRadius="4dp"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
     android:layout_margin="5dp"
     android:layout_marginLeft="32px"
-    android:layout_marginRight="32px">
+    android:layout_marginRight="32px"
+    card_view:cardCornerRadius="4dp">
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/content_padding_normal"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_centerVertical="true">
+        android:layout_centerVertical="true"
+        android:padding="@dimen/content_padding_normal">
 
         <com.pkmmte.circularimageview.CircularImageView
             android:id="@+id/contact_img"
@@ -24,8 +24,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/content_padding_normal"
             android:layout_marginEnd="@dimen/content_padding_normal"
+            android:layout_marginRight="@dimen/content_padding_normal"
             android:clickable="true"
             android:src="@drawable/default_avatar"
             app:civ_border="false"
@@ -33,32 +33,33 @@
             app:civ_selector_color="@android:color/transparent"
             app:civ_selector_stroke_color="@color/theme_primary"
             app:civ_selector_stroke_width="1dp"
-            app:civ_shadow="false"/>
+            app:civ_shadow="false" />
 
         <TextView
             android:id="@+id/contact_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
             android:layout_alignTop="@+id/contact_img"
-            android:layout_toRightOf="@+id/contact_img"
+            android:layout_marginTop="2dp"
             android:layout_toEndOf="@+id/contact_img"
-            android:text="@string/anonymous_user"
+            android:layout_toRightOf="@+id/contact_img"
             android:ellipsize="end"
             android:singleLine="true"
+            android:text="@string/anonymous_user"
             android:textColor="@color/dark_gray"
-            android:textSize="@dimen/text_size_subhead"/>
+            android:textSize="@dimen/text_size_subhead" />
 
-        <android.support.v7.widget.RecyclerView
+        <LinearLayout
             android:id="@+id/my_tag_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical"
-            android:layout_below="@+id/pager">
-        </android.support.v7.widget.RecyclerView>
+            android:layout_toRightOf="@+id/contact_img"
+            android:layout_toEndOf="@+id/contact_img"
+            android:layout_below="@id/contact_name"></LinearLayout>
 
 
-        </RelativeLayout>
+    </RelativeLayout>
 
 
 </android.support.v7.widget.CardView>
