@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/profile_header"
+        android:layout_width="match_parent"
+        android:layout_height="144dp"
+        android:background="@color/primaryDark"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true">
+
+        <com.pkmmte.circularimageview.CircularImageView
+            android:id="@+id/user_avatar"
+            android:layout_marginTop="16dp"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/default_avatar"
+            android:scaleType="centerCrop"
+            app:civ_border="false"
+            app:civ_selector="true"
+            app:civ_selector_color="@android:color/transparent"
+            app:civ_selector_stroke_color="@color/theme_primary"
+            app:civ_selector_stroke_width="1dp"
+            app:civ_shadow="false"/>
+
+        <TextView
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/user_avatar"
+            android:text="@string/default_username"
+            android:textColor="@color/primary_text_color"
+            android:textSize="18sp"/>
+
+        <LinearLayout
+            android:id="@+id/ll_icon_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/tv_username"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/common_events_icon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/Shape_cal_black"
+                android:tint="@color/primary_text_color" />
+            <TextView
+                android:id="@+id/common_events_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="@string/default_icon_text"/>
+
+            <ImageView
+                android:id="@+id/common_friends_icon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginLeft="16dp"
+                android:src="@drawable/ic_person_black_48px"
+                android:tint="@color/primary_text_color" />
+            <TextView
+                android:id="@+id/common_friends_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="@string/default_icon_text"/>
+
+            <ImageView
+                android:id="@+id/common_skills_icon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginLeft="16dp"
+                android:src="@drawable/ic_star_black_48px"
+                android:tint="@color/primary_text_color" />
+            <TextView
+                android:id="@+id/common_skills_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="@string/default_icon_text"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

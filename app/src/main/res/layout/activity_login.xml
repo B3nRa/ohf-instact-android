@@ -12,6 +12,7 @@
         android:layout_centerHorizontal="true"
         android:clickable="true"
         android:src="@drawable/default_avatar"
+        android:scaleType="centerCrop"
         app:civ_border="false"
         app:civ_selector="true"
         app:civ_selector_color="@android:color/transparent"
