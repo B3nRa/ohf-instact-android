@@ -1,21 +1,12 @@
 package hackerstolz.de.instact.data;
 
-import android.app.Application;
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
 
 
-import java.util.ArrayList;
 import java.util.List;
-
-import hackerstolz.de.instact.helper.ContactDbHelper;
 
 /**
  * Created by floatec on 26/09/15.

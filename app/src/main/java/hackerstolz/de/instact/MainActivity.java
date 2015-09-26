@@ -1,6 +1,5 @@
 package hackerstolz.de.instact;
 
-import android.content.SyncStatusObserver;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -28,7 +27,6 @@ import java.util.Locale;
 import java.util.UUID;
 
 import hackerstolz.de.instact.data.Contact;
-import hackerstolz.de.instact.helper.ContactDbHelper;
 import hackerstolz.de.instact.p2p.ConnectionListener;
 import hackerstolz.de.instact.p2p.P2pKitDataProvider;
 
