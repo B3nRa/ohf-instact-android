@@ -19,17 +19,17 @@ import com.astuetz.PagerSlidingTabStrip;
 
 import java.util.Locale;
 
-import ch.uepaa.p2pkit.ConnectionCallbacks;
-import ch.uepaa.p2pkit.ConnectionResult;
-import ch.uepaa.p2pkit.ConnectionResultHandling;
-import ch.uepaa.p2pkit.KitClient;
-import ch.uepaa.p2pkit.discovery.P2pListener;
-import ch.uepaa.p2pkit.discovery.Peer;
+import java.util.List;
+import java.util.UUID;
+
+import hackerstolz.de.instact.p2p.ConnectionListener;
+import hackerstolz.de.instact.p2p.P2pKitDataProvider;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getName();
-    private static final String P2P_KIT_APP_KEY = "eyJzaWduYXR1cmUiOiI0cDRjZzFqUENPQm1BRTFQTis3dm1PZjBiQ0hHU2lueVNWZEdaVlNSUTVPVzJMRENQMjA5S01YSzdueTJKdGRPRXVmc213MmVGZ3NrVEJXakFlM2F1eTdIQklNTXkrMC81RitwbTlBL0p5QjJhVkxmZEZNaEd3UWo2c3EyRDZ4dWRhUkdxODJzNkRaeDFWVnFHN3pwWlpKNHZMU2xrcUVTLytWUUtXWGE3ODA9IiwiYXBwSWQiOjEyNjAsInZhbGlkVW50aWwiOjE2Nzk0LCJhcHBVVVVJRCI6IkMxNzcxQThFLTk0ODYtNDNFRS05NTgxLThBMDUwMzZFMUY4RCJ9";
+
+    private P2pKitDataProvider p2pDataProvider;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -50,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        p2pDataProvider = new P2pKitDataProvider(this, new P2pConnectionListener());
+        p2pDataProvider.init();
+   
 
 
         // Create the adapter that will return a fragment for each of the three
@@ -91,8 +94,6 @@ public class MainActivity extends AppCompatActivity {
 //                            .setText("Tab " + (i + 1))
 //                            .setTabListener(tabListener));
 //        }
-
-        initP2pKit();
     }
 
 
@@ -118,29 +119,20 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
+    public class P2pConnectionListener implements ConnectionListener {
+        public void onConnected() {
+            logCurrentPeers();
         }
 
-        @Override
-        public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+        private void logCurrentPeers() {
+            List<UUID> peerIds = p2pDataProvider.getCurrentPeerIds();
+            Log.d(TAG, "===== CURRENT PEERS: ");
+            for(UUID peerId : peerIds) {
+                Log.d(TAG, "Peer: " + peerId);
+            }
         }
-
-        @Override
-        public int getCount() {
-            // Show 3 total pages.
-            return 2;
-        }
+    }
+}
 
         @Override
         public CharSequence getPageTitle(int position) {
