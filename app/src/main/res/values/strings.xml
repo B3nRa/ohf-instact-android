@@ -10,5 +10,6 @@
 
     <string name="anonymous_user">Clark Gable</string>
     <string name="username_hint">Your name</string>
+    <string name="tags_hint">Tags</string>
     <string name="btn_continue">Continue</string>
 </resources>
