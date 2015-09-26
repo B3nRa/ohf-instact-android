@@ -21,4 +21,8 @@
         <attr name="civ_shadow" format="boolean"/>
     </declare-styleable>
 
+    <declare-styleable name="CustomCircularImageViewTheme">
+        <attr name="circularImageViewStyle" format="reference"/>
+    </declare-styleable>
+
 </resources>
