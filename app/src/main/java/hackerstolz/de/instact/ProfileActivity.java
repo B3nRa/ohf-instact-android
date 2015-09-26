@@ -2,18 +2,32 @@ package hackerstolz.de.instact;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.util.List;
+import java.util.UUID;
+
+import hackerstolz.de.instact.p2p.ConnectionListener;
+import hackerstolz.de.instact.p2p.P2pKitDataProvider;
 
 /**
  * Created by muszy on 26-Sep-15.
  */
 public class ProfileActivity extends AppCompatActivity {
 
+    private static final String TAG = ProfileActivity.class.getName();
+
+    private P2pKitDataProvider p2pDataProvider;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        p2pDataProvider = new P2pKitDataProvider(this, new P2pConnectionListener());
+        p2pDataProvider.init();
     }
 
     @Override
@@ -36,5 +50,20 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public class P2pConnectionListener implements ConnectionListener {
+        @Override
+        public void onConnected() {
+            logCurrentPeers();
+        }
+
+        private void logCurrentPeers() {
+            List<UUID> peerIds = p2pDataProvider.getCurrentPeerIds();
+            Log.d(TAG, "===== CURRENT PEERS: ");
+            for(UUID peerId : peerIds) {
+                Log.d(TAG, "Peer: " + peerId);
+            }
+        }
     }
 }

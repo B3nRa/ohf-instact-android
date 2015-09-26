@@ -7,7 +7,7 @@
     <RelativeLayout
         android:id="@+id/profile_header"
         android:layout_width="match_parent"
-        android:layout_height="144dp"
+        android:layout_height="172dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
@@ -15,12 +15,13 @@
 
         <com.pkmmte.circularimageview.CircularImageView
             android:id="@+id/user_avatar"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="12dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/default_avatar"
+            android:src="@drawable/default_avatar_hs"
+            android:clickable="true"
             app:civ_border="false"
             app:civ_selector="true"
             app:civ_selector_color="@android:color/transparent"
@@ -34,10 +35,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/user_avatar"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:text="@string/default_username"
             android:textColor="@color/primary_text_color"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
         <LinearLayout
             android:id="@+id/ll_icon_bar"
@@ -46,6 +47,7 @@
             android:layout_below="@id/tv_username"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -60,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="@string/default_icon_text"
+                android:text="@string/default_icon_text1"
                 android:textColor="@color/primary_text_color"
                 android:textSize="14sp" />
 
@@ -77,7 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="@string/default_icon_text"
+                android:text="@string/default_icon_text2"
                 android:textColor="@color/primary_text_color"
                 android:textSize="14sp" />
 
@@ -94,16 +96,33 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="@string/default_icon_text"
+                android:text="@string/default_icon_text3"
                 android:textColor="@color/primary_text_color"
                 android:textSize="14sp" />
         </LinearLayout>
     </RelativeLayout>
 
+
+    <com.pkmmte.circularimageview.CircularImageView
+        android:id="@+id/connect_profile_btn"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="136dp"
+        android:layout_marginRight="12dp"
+        android:src="@drawable/ic_person_add_orange_48dp_2"
+        app:civ_border="false"
+        app:civ_selector="true"
+        app:civ_selector_color="@android:color/transparent"
+        app:civ_selector_stroke_color="@color/theme_primary"
+        app:civ_selector_stroke_width="1dp"
+        app:civ_shadow="true" />
+
+
     <ImageView
         android:id="@+id/common_events_icon_big"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@id/profile_header"
@@ -115,20 +134,20 @@
     <TextView
         android:id="@+id/common_events_heading"
         android:layout_width="wrap_content"
-        android:layout_height="24dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/profile_header"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="7dp"
         android:layout_toRightOf="@id/common_events_icon_big"
         android:text="@string/common_events"
         android:textColor="@android:color/black"
-        android:textSize="20dp" />
+        android:textSize="24sp" />
     <!-- Example events -->
     <TextView
         android:id="@+id/ex1_event"
         android:layout_width="wrap_content"
-        android:layout_height="18dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/common_events_heading"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:layout_toRightOf="@id/common_events_icon_big"
         android:text="@string/common_events_ex1"
         android:textColor="@android:color/black"
@@ -137,9 +156,9 @@
     <TextView
         android:id="@+id/ex2_event"
         android:layout_width="wrap_content"
-        android:layout_height="18dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/ex1_event"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:layout_toRightOf="@id/common_events_icon_big"
         android:text="@string/common_events_ex2"
         android:textColor="@android:color/black"
@@ -148,7 +167,7 @@
     <TextView
         android:id="@+id/ex3_event"
         android:layout_width="wrap_content"
-        android:layout_height="18dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/ex2_event"
         android:layout_marginTop="8dp"
         android:layout_toRightOf="@id/common_events_icon_big"
@@ -159,33 +178,33 @@
 
     <ImageView
         android:id="@+id/common_friends_icon_big"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@id/ex3_event"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         android:src="@drawable/ic_person_black_48dp" />
 
     <TextView
         android:id="@+id/common_friends_heading"
         android:layout_width="wrap_content"
-        android:layout_height="24dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/ex3_event"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="12dp"
         android:layout_toRightOf="@id/common_events_icon_big"
         android:text="@string/common_friends"
         android:textColor="@android:color/black"
-        android:textSize="20dp" />
-    <!-- Example events -->
+        android:textSize="24sp" />
+    <!-- Example Friends -->
     <TextView
         android:id="@+id/ex1_friend"
         android:layout_width="wrap_content"
         android:layout_height="18dp"
         android:layout_below="@id/common_friends_heading"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:layout_toRightOf="@id/common_friends_icon_big"
         android:text="@string/common_friends_ex1"
         android:textColor="@android:color/black"
