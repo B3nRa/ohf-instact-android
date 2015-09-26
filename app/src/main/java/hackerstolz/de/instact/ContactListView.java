@@ -1,13 +1,18 @@
 package hackerstolz.de.instact;
 
+import android.content.Context;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pkmmte.circularimageview.CircularImageView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,8 +54,18 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
         holder.contactName.setText(contact.getName());
         //TODO: add image here
 
-        holder.mAdapter.addLabels(contact.labelList());
-        holder.mAdapter.notifyDataSetChanged();
+        List<String> labels = contact.labelList();
+        LayoutInflater inflater = LayoutInflater.from(holder.mContext);
+
+        for(String label : labels) {
+            TextView tv = (TextView) inflater.inflate(R.layout.tag_list_item, holder.tagRecyclerView, false);
+            tv.setText(label);
+            holder.tagRecyclerView.addView(tv);
+        }
+//        foo.add("foo");
+//        foo.add("bar");
+//        holder.mAdapter.addLabels(foo);
+//        holder.mAdapter.notifyDataSetChanged();
         //holder.contactLabels.setText(contact.getLabels().toString());
 //        holder.contactImage.setImage(null);
     }
@@ -62,7 +77,9 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
         // each data item is just a string in this case
         public TextView contactName;
         public CircularImageView contactImage;
-        public RecyclerView tagRecyclerView;
+        public LinearLayout tagRecyclerView;
+        public Context mContext;
+//        private LinearLayout.LayoutManager mLayoutManager;
 
         public List<String> mLabels;
 
@@ -72,10 +89,14 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
             super(v);
             contactName = (TextView) v.findViewById(R.id.contact_name);
             contactImage = (CircularImageView) v.findViewById(R.id.contact_img);
-            tagRecyclerView = (RecyclerView) v.findViewById(R.id.my_tag_recycler_view);
+            tagRecyclerView = (LinearLayout) v.findViewById(R.id.my_tag_recycler_view);
+            mContext = v.getContext();
 
-            mAdapter = new TagListView();
-            tagRecyclerView.setAdapter(mAdapter);
+//            tagRecyclerView.setHasFixedSize(true);
+//            mAdapter = new TagListView();
+//            mLayoutManager = new LinearLayoutManager(v.getContext());
+//            tagRecyclerView.setLayoutManager(mLayoutManager);
+//            tagRecyclerView.setAdapter(mAdapter);
 //            mAdapter = new TagListView();
         }
     }
