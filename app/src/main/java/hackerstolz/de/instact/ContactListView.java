@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.pkmmte.circularimageview.CircularImageView;
+
 import java.util.List;
 
 public class ContactListView extends RecyclerView.Adapter<ContactListView.ContactViewHolder> {
@@ -33,6 +35,7 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
 //        holder.cardView.setText(mDataset[position]);
         String userName = mContacts.get(position);
         holder.contactName.setText(userName);
+//        holder.contactImage.setImage(null);
     }
 
     // Provide a reference to the views for each data item
@@ -41,9 +44,12 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
     public static class ContactViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public TextView contactName;
+        public CircularImageView contactImage;
+
         public ContactViewHolder(View v) {
             super(v);
             contactName = (TextView) v.findViewById(R.id.contact_name);
+            contactImage = (CircularImageView) v.findViewById(R.id.contact_img);
         }
     }
 
