@@ -19,6 +19,16 @@ android {
     }
 }
 
+repositories {
+
+    maven {
+        url "http://p2pkit.io/maven2"
+    }
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'ch.uepaa.p2p:p2pkit-android:1.0.3'
 }
+
+
