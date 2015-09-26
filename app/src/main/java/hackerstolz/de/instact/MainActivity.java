@@ -1,5 +1,7 @@
 package hackerstolz.de.instact;
 
+import android.content.SyncStatusObserver;
+import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -59,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().setElevation(0);
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -71,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         // Bind the tabs to the ViewPager
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabs.setViewPager(mViewPager);
+//        tabs.setElevation(100);
 
         p2pDataProvider = new P2pKitDataProvider(this, new P2pConnectionListener());
 
