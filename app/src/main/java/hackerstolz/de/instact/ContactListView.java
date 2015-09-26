@@ -1,6 +1,7 @@
 package hackerstolz.de.instact;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +23,7 @@ import hackerstolz.de.instact.data.Label;
 import hackerstolz.de.instact.tags.TagListView;
 
 public class ContactListView extends RecyclerView.Adapter<ContactListView.ContactViewHolder> {
+    public static final String P2P_ID = "p2p_id";
     private List<Contact> mContacts;
 
     // Provide a suitable constructor (depends on the kind of dataset)
@@ -52,6 +54,7 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
 //        holder.cardView.setText(mDataset[position]);
         Contact contact = mContacts.get(position);
         holder.contactName.setText(contact.getName());
+        holder.contact = contact;
         //TODO: add image here
 
         List<String> labels = contact.labelList();
@@ -79,6 +82,7 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
         public CircularImageView contactImage;
         public LinearLayout tagRecyclerView;
         public Context mContext;
+        public Contact contact;
 //        private LinearLayout.LayoutManager mLayoutManager;
 
         public List<String> mLabels;
@@ -91,6 +95,15 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
             contactImage = (CircularImageView) v.findViewById(R.id.contact_img);
             tagRecyclerView = (LinearLayout) v.findViewById(R.id.my_tag_recycler_view);
             mContext = v.getContext();
+
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(mContext, ProfileActivity.class);
+                    intent.putExtra(P2P_ID, contact.getId());
+                    mContext.startActivity(intent);
+                }
+            });
 
 //            tagRecyclerView.setHasFixedSize(true);
 //            mAdapter = new TagListView();
