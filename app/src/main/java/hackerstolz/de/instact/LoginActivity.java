@@ -10,10 +10,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.activeandroid.ActiveAndroid;
+import com.activeandroid.Configuration;
+
 import java.util.Arrays;
 import java.util.List;
 
 import hackerstolz.de.instact.data.Contact;
+import hackerstolz.de.instact.data.Label;
 import hackerstolz.de.instact.helper.ContactDbHelper;
 
 /**
@@ -25,9 +29,12 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Contact.mDbHelper = new ContactDbHelper(this);
-        setContentView(R.layout.activity_login);
 
+        setContentView(R.layout.activity_login);
+        Configuration.Builder configurationBuilder = new Configuration.Builder(this);
+        configurationBuilder.addModelClass(Contact.class);
+        configurationBuilder.addModelClass(Label.class);
+        ActiveAndroid.initialize(configurationBuilder.create());
         initViews();
     }
 
@@ -77,7 +84,8 @@ public class LoginActivity extends AppCompatActivity {
         String p2pId = "foobar"; // TODO!
         String xing = "barfoo"; // TODO!
         try {
-            Contact contact = new Contact(userName, xing, p2pId, tags);
+            Contact contact = new Contact(userName, xing, p2pId);
+            contact.save();
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
