@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.pkmmte.circularimageview.CircularImageView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import hackerstolz.de.instact.data.Contact;
@@ -48,11 +50,11 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
 
         List<String> labels = contact.labelList();
         LayoutInflater inflater = LayoutInflater.from(holder.mContext);
-
+        labels = Arrays.asList(new String[]{"foo","foo","foo","foo","foo","foo","foo","foo","foo","foo","foo","foo","foo","foo","foo","foo","foo","foo","foo","foo","foo","foo","foo","foo","foo",});
         for(String label : labels) {
             TextView tv = (TextView) inflater.inflate(R.layout.tag_list_item, holder.tagRecyclerView, false);
             tv.setText(label);
-            holder.tagRecyclerView.addView(tv);
+            holder.tagRecyclerView.addView(tv, new FlowLayout.LayoutParams(5, 5));
         }
     }
 
@@ -63,7 +65,8 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
         // each data item is just a string in this case
         public TextView contactName;
         public CircularImageView contactImage;
-        public LinearLayout tagRecyclerView;
+//        public LinearLayout tagRecyclerView;
+        public FlowLayout tagRecyclerView;
         public Context mContext;
 
         public List<String> mLabels;
@@ -72,7 +75,10 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
             super(v);
             contactName = (TextView) v.findViewById(R.id.contact_name);
             contactImage = (CircularImageView) v.findViewById(R.id.contact_img);
-            tagRecyclerView = (LinearLayout) v.findViewById(R.id.my_tag_recycler_view);
+
+//            tagRecyclerView = (LinearLayout) v.findViewById(R.id.my_tag_recycler_view);
+            tagRecyclerView = (FlowLayout) v.findViewById(R.id.my_tag_recycler_view);
+
             mContext = v.getContext();
         }
     }
