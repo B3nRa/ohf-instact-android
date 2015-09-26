@@ -21,8 +21,8 @@ public class Contact {
     private String p2pId;
     static Context context;
     static ContactDbHelper mDbHelper = new ContactDbHelper(context);
-    private List<Label> labels=new ArrayList<Label>();
-    Contact(String name,String xing,String p2pId,List <Label> labels) throws Exception {
+    private List<String> labels=new ArrayList<String>();
+    Contact(String name,String xing,String p2pId,List <String> labels) throws Exception {
         this.name=name;
         this.xing=xing;
         this.p2pId=p2pId;
@@ -91,5 +91,35 @@ public class Contact {
                 ContactContract.ContactEntry.TABLE_NAME,
                 null,
                 values);
+    }
+    private void saveLabel(String name) throws Exception {
+        if (mDbHelper==null){
+            throw new Exception("Database not connected Mdhelper");
+        }
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+// Create a new map of values, where column names are the keys
+        ContentValues values = new ContentValues();
+        values.put(LabelContract.LabelEntry.COLUMN_NAME_CONTACT_ID, id);
+        values.put(LabelContract.LabelEntry.COLUMN_NAME_NAME, name);
+
+
+// Insert the new row, returning the primary key value of the new row
+        id = db.insert(
+                LabelContract.LabelEntry.TABLE_NAME,
+                null,
+                values);
+    }
+    private void deleteAllLabel() throws Exception {
+        if (mDbHelper==null){
+            throw new Exception("Database not connected Mdhelper");
+        }
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        String selection = LabelContract.LabelEntry.COLUMN_NAME_CONTACT_ID + " LIKE ?";
+// Specify arguments in placeholder order.
+        String[] selectionArgs = { String.valueOf(id) };
+// Issue SQL statement.
+        db.delete(LabelContract.LabelEntry.TABLE_NAME, selection, selectionArgs);
     }
 }

@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import hackerstolz.de.instact.data.ContactContract.ContactEntry;
+import hackerstolz.de.instact.data.LabelContract;
 
 
 /**
@@ -21,10 +22,16 @@ public class ContactDbHelper extends SQLiteOpenHelper {
                     ContactEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
                     ContactEntry.COLUMN_NAME_XING + TEXT_TYPE + COMMA_SEP +
                     ContactEntry.COLUMN_NAME_P2P_ID + TEXT_TYPE + COMMA_SEP +
-    " )";
+    " );" +
+                    "CREATE TABLE " + LabelContract.LabelEntry.TABLE_NAME + " (" +
+                    LabelContract.LabelEntry._ID + " INTEGER PRIMARY KEY," +
+                    LabelContract.LabelEntry.COLUMN_NAME_CONTACT_ID + TEXT_TYPE + COMMA_SEP +
+                    LabelContract.LabelEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
+                    " )";
+
 
     private static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS " + ContactEntry.TABLE_NAME;
+            "DROP TABLE IF EXISTS " + ContactEntry.TABLE_NAME+"; DROP TABLE IF EXISTS " + LabelContract.LabelEntry.TABLE_NAME;;
     // If you change the database schema, you must increment the database version.
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "contact.db";
