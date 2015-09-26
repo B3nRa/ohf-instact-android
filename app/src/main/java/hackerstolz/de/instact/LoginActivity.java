@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Netly</font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>netly</font>"));
 
         Configuration.Builder configurationBuilder = new Configuration.Builder(this);
         configurationBuilder.addModelClass(Contact.class);

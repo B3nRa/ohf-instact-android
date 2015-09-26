@@ -17,6 +17,6 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Netly</font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>netly</font>"));
     }
 }
