@@ -4,7 +4,8 @@
     <color name="colorPrimaryDark">#D0021B</color>
     <color name="colorAccent">#ff026baf</color>
 
-
+    <color name="primary_color">#D0021B</color>
+    <color name="primary_text_color">#FFFFFF</color>
     <color name="primaryDark">#D0021B</color>
     <color name="primaryLight">#D0021B</color>
     <color name="dark_gray">#ff707070</color>

@@ -10,5 +10,18 @@
 
     <string name="anonymous_user">Clark Gable</string>
     <string name="username_hint">Your name</string>
+    <string name="tags_hint">Tags</string>
     <string name="btn_continue">Continue</string>
+    <string name="default_username">Henning Muszynski</string>
+    <string name="default_icon_text1">3</string>
+    <string name="default_icon_text2">12</string>
+    <string name="default_icon_text3">23</string>
+    <string name="common_events">Common Events</string>
+    <string name="common_friends">Common Friends</string>
+
+    <string name="common_events_ex1">IHK Oktoberhackfest, Munich</string>
+    <string name="common_events_ex2">EduHacks, Mannheim</string>
+    <string name="common_events_ex3">Burda Hackday, Munich</string>
+    <string name="common_friends_ex1">Patrick Mueller</string>
+    <string name="common_friends_ex2">Benjamina Raethlein</string>
 </resources>

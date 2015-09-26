@@ -12,6 +12,7 @@
         android:layout_centerHorizontal="true"
         android:clickable="true"
         android:src="@drawable/default_avatar"
+        android:scaleType="centerCrop"
         app:civ_border="false"
         app:civ_selector="true"
         app:civ_selector_color="@android:color/transparent"
@@ -36,9 +37,20 @@
         android:layout_marginTop="32dp"
         android:layout_marginRight="64dp"
         android:layout_marginLeft="64dp"
-        android:hint="@string/username_hint"
+        android:hint="@string/tags_hint"
         android:layout_below="@id/edittext_username" />
-    
+
+    <ImageButton
+        android:src="@drawable/linkedin_button"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginRight="64dp"
+        android:layout_marginLeft="64dp"
+        android:scaleType="centerCrop"
+        style="?android:borderlessButtonStyle"
+        android:layout_below="@id/edittext_tags"/>
+
     <Button
         android:id="@+id/continue_button"
         android:layout_width="wrap_content"
