@@ -20,11 +20,11 @@ import android.view.WindowManager;
 
 import com.astuetz.PagerSlidingTabStrip;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
+import hackerstolz.de.instact.data.Contact;
 import hackerstolz.de.instact.p2p.ConnectionListener;
 import hackerstolz.de.instact.p2p.P2pKitDataProvider;
 
@@ -70,8 +70,6 @@ public class MainActivity extends AppCompatActivity {
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabs.setViewPager(mViewPager);
 
-
-        p2pDataProvider = new P2pKitDataProvider(this, new P2pConnectionListener());
         p2pDataProvider.init();
 
         setup();
@@ -157,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         private static final String ARG_SECTION_NUMBER = "section_number";
 
         private RecyclerView mRecyclerView;
-        private RecyclerView.Adapter mAdapter;
+        private ContactListView mAdapter;
         private RecyclerView.LayoutManager mLayoutManager;
 
         /**
@@ -191,19 +189,29 @@ public class MainActivity extends AppCompatActivity {
 
 
             // specify an adapter (see also next example)
-            List<String> u = new ArrayList<String>();
-            u.add("Foobar");
-            mAdapter = new ContactListView(u);
+            mAdapter = new ContactListView();
             mRecyclerView.setAdapter(mAdapter);
+
+            new P2pKitDataProvider(new P2pConnectionListener(this));
 
             return rootView;
         }
     }
 
     public class P2pConnectionListener implements ConnectionListener {
+        private PlaceholderFragment mPlaceholderFragment;
+
+        P2pConnectionListener(PlaceholderFragment fragment){
+            mPlaceholderFragment = fragment;
+        }
+
         @Override
         public void onConnected() {
             logCurrentPeers();
+            p2pDataProvider = new P2pKitDataProvider(this, new P2pConnectionListener());
+            List<Contact> peerIds = p2pDataProvider.getCurrentPeerIds();
+            mPlaceholderFragment.mAdapter.addContacts(peerIds);
+            mPlaceholderFragment.mAdapter.notifyDataSetChanged();
         }
 
         private void logCurrentPeers() {

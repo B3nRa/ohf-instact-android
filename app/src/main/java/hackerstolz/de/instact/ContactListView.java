@@ -21,6 +21,13 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
         mContacts = contacts;
     }
 
+    public void addContact(Contact contact){
+        mContacts.add(contact);
+    }
+
+    public void addContacts(List<Contact> contacts){
+        mContacts.addAll(contacts);
+    }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
