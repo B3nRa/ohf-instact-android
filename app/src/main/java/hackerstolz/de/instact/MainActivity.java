@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,13 +23,13 @@ import android.view.WindowManager;
 
 import com.astuetz.PagerSlidingTabStrip;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
 import hackerstolz.de.instact.data.Contact;
-import hackerstolz.de.instact.helper.ContactDbHelper;
 import hackerstolz.de.instact.p2p.ConnectionListener;
 import hackerstolz.de.instact.p2p.P2pKitDataProvider;
 
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().setElevation(0);
-
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Netly</font>"));
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
         p2pDataProvider.init();
 
-        Contact.mDbHelper = new ContactDbHelper(this);
+
 
         setup();
     }
@@ -202,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
 
             List<Contact> contacts = null;
             try {
-                contacts = Contact.find();
+                contacts = Contact.getAll();
             } catch (Exception e) {
                 System.err.println(e.getMessage());
                 contacts = new ArrayList<>();

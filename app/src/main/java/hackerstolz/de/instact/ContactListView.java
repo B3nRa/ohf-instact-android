@@ -9,9 +9,12 @@ import android.widget.TextView;
 
 import com.pkmmte.circularimageview.CircularImageView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import hackerstolz.de.instact.data.Contact;
+import hackerstolz.de.instact.data.Label;
+import hackerstolz.de.instact.tags.TagListView;
 
 public class ContactListView extends RecyclerView.Adapter<ContactListView.ContactViewHolder> {
     private List<Contact> mContacts;
@@ -44,7 +47,11 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
 //        holder.cardView.setText(mDataset[position]);
         Contact contact = mContacts.get(position);
         holder.contactName.setText(contact.getName());
-        holder.contactLabels.setText(contact.getLabels().toString());
+        //TODO: add image here
+
+        holder.mAdapter.addLabels(contact.labelList());
+        holder.mAdapter.notifyDataSetChanged();
+        //holder.contactLabels.setText(contact.getLabels().toString());
 //        holder.contactImage.setImage(null);
     }
 
@@ -55,13 +62,21 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
         // each data item is just a string in this case
         public TextView contactName;
         public CircularImageView contactImage;
-        public TextView contactLabels;
+        public RecyclerView tagRecyclerView;
+
+        public List<String> mLabels;
+
+        public TagListView mAdapter;
 
         public ContactViewHolder(View v) {
             super(v);
             contactName = (TextView) v.findViewById(R.id.contact_name);
-            contactLabels = (TextView) v.findViewById(R.id.contact_labels);
             contactImage = (CircularImageView) v.findViewById(R.id.contact_img);
+            tagRecyclerView = (RecyclerView) v.findViewById(R.id.my_tag_recycler_view);
+
+            mAdapter = new TagListView();
+            tagRecyclerView.setAdapter(mAdapter);
+//            mAdapter = new TagListView();
         }
     }
 
