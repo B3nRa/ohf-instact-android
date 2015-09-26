@@ -106,7 +106,7 @@ public class P2pKitDataProvider {
                 if(peer.getDiscoveryInfo() != null && peer.getDiscoveryInfo().length > 0) {
                     info = new String(peer.getDiscoveryInfo());
                 }
-                Contact contact= new Contact(info,"","");
+                Contact contact= new Contact(info,"xing",peer.getNodeId().toString());
                 contact.save();
                 Log.d(TAG, "P2pListener | Peer discovered: " + peer.getNodeId() + " with info: " + info);
             }
@@ -129,7 +129,7 @@ public class P2pKitDataProvider {
 
     private void setDiscoveryInfo() {
         try {
-            KitClient.getInstance(mContext).getDiscoveryServices().setP2pDiscoveryInfo("Hello p2pkit from HackerStolz".getBytes());
+            KitClient.getInstance(mContext).getDiscoveryServices().setP2pDiscoveryInfo(("P2P"+Contact.get("ME").name).getBytes());
         } catch (InfoTooLongException e) {
             Log.d(TAG, "P2pListener | The discovery info is too long");
         }
