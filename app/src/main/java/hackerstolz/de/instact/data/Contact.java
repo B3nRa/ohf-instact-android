@@ -6,6 +6,7 @@ import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +24,17 @@ public class Contact extends Model {
     public List<Label> labels() {
         return getMany(Label.class, "Label");
     }
+    public List<Meeting> meetings() {
+        return getMany(Meeting.class, "Meeting");
+    }
+    public List<String> labelList() {
+        List<Label> labels=getMany(Label.class, "Label");
+        List<String> labelList=new ArrayList<>();
+        for (Label label:labels) {
+            labelList.add(label.Title);
+        }
+        return labelList;
+    }
 
     public String getName() {
         return name;
@@ -30,10 +42,13 @@ public class Contact extends Model {
 
     public static List<Contact> getAll() {
         return new Select()
-                .from(Contact.class).execute();
+                .from(Contact.class).where("p2pid is NOT ?", "ME").execute();
     }
 
-
+    public static Contact get(String p2pId) {
+        return new Select()
+                .from(Contact.class).where("p2pid=?",p2pId).executeSingle();
+    }
 
     public Contact(String name,String xing,String p2pId){
         super();

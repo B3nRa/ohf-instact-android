@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
         String userName = etUserName.getText().toString();
         String rawTags = etTags.getText().toString();
         List<String> tags = Arrays.asList(rawTags.split(","));
-        String p2pId = "foobar"; // TODO!
+        String p2pId = "ME"; // TODO!
         String xing = "barfoo"; // TODO!
         try {
             Contact contact = new Contact(userName, xing, p2pId);
