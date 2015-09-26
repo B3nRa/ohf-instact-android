@@ -1,5 +1,11 @@
 apply plugin: 'com.android.application'
 
+repositories {
+    maven {
+        url "http://p2pkit.io/maven2"
+    }
+}
+
 android {
     compileSdkVersion 22
     buildToolsVersion '22.0.1'
@@ -25,4 +31,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
 
+    compile 'ch.uepaa.p2p:p2pkit-android:1.0.3'
 }
