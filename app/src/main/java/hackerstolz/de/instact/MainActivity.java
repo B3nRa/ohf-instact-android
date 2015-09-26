@@ -47,9 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
     private P2pKitDataProvider p2pDataProvider;
 
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+
 
 
     @Override
@@ -69,20 +67,6 @@ public class MainActivity extends AppCompatActivity {
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabs.setViewPager(mViewPager);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        mRecyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
-        // specify an adapter (see also next example)
-        List<String> u = new ArrayList<String>();
-        u.add("Foobar");
-        mAdapter = new ContactListView(u);
-        mRecyclerView.setAdapter(mAdapter);
 
         p2pDataProvider = new P2pKitDataProvider(this, new P2pConnectionListener());
         p2pDataProvider.init();    }
@@ -157,6 +141,10 @@ public class MainActivity extends AppCompatActivity {
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
 
+        private RecyclerView mRecyclerView;
+        private RecyclerView.Adapter mAdapter;
+        private RecyclerView.LayoutManager mLayoutManager;
+
         /**
          * Returns a new instance of this fragment for the given section
          * number.
@@ -176,6 +164,23 @@ public class MainActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main2, container, false);
+
+            mRecyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
+            // use this setting to improve performance if you know that changes
+            // in content do not change the layout size of the RecyclerView
+            mRecyclerView.setHasFixedSize(true);
+
+            // use a linear layout manager
+            mLayoutManager = new LinearLayoutManager(this.getActivity());
+            mRecyclerView.setLayoutManager(mLayoutManager);
+
+
+            // specify an adapter (see also next example)
+            List<String> u = new ArrayList<String>();
+            u.add("Foobar");
+            mAdapter = new ContactListView(u);
+            mRecyclerView.setAdapter(mAdapter);
+
             return rootView;
         }
     }
