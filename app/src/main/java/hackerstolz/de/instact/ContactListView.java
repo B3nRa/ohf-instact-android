@@ -11,11 +11,13 @@ import com.pkmmte.circularimageview.CircularImageView;
 
 import java.util.List;
 
+import hackerstolz.de.instact.data.Contact;
+
 public class ContactListView extends RecyclerView.Adapter<ContactListView.ContactViewHolder> {
-    private List<String> mContacts;
+    private List<Contact> mContacts;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public ContactListView(List<String> contacts) {
+    public ContactListView(List<Contact> contacts) {
         mContacts = contacts;
     }
 
@@ -33,8 +35,9 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
 //        holder.cardView.setText(mDataset[position]);
-        String userName = mContacts.get(position);
-        holder.contactName.setText(userName);
+        Contact contact = mContacts.get(position);
+        holder.contactName.setText(contact.getName());
+        holder.contactLabels.setText(contact.getLabels().toString());
 //        holder.contactImage.setImage(null);
     }
 
@@ -45,10 +48,12 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
         // each data item is just a string in this case
         public TextView contactName;
         public CircularImageView contactImage;
+        public TextView contactLabels;
 
         public ContactViewHolder(View v) {
             super(v);
             contactName = (TextView) v.findViewById(R.id.contact_name);
+            contactLabels = (TextView) v.findViewById(R.id.contact_labels);
             contactImage = (CircularImageView) v.findViewById(R.id.contact_img);
         }
     }

@@ -48,7 +48,7 @@
             android:textSize="@dimen/text_size_subhead"/>
 
         <TextView
-            android:id="@+id/contact_tags"
+            android:id="@+id/contact_labels"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
