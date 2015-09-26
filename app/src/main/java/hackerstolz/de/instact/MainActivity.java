@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
         // Bind the tabs to the ViewPager
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabs.setViewPager(mViewPager);
-//        tabs.setElevation(100);
 
         p2pDataProvider = new P2pKitDataProvider(this, new P2pConnectionListener());
 

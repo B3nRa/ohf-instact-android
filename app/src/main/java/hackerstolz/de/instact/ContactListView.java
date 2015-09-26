@@ -1,8 +1,6 @@
 package hackerstolz.de.instact;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,14 +10,9 @@ import android.widget.TextView;
 
 import com.pkmmte.circularimageview.CircularImageView;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import hackerstolz.de.instact.data.Contact;
-import hackerstolz.de.instact.data.Label;
-import hackerstolz.de.instact.tags.TagListView;
 
 public class ContactListView extends RecyclerView.Adapter<ContactListView.ContactViewHolder> {
     private List<Contact> mContacts;
@@ -49,7 +42,6 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
     public void onBindViewHolder(ContactViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-//        holder.cardView.setText(mDataset[position]);
         Contact contact = mContacts.get(position);
         holder.contactName.setText(contact.getName());
         //TODO: add image here
@@ -62,12 +54,6 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
             tv.setText(label);
             holder.tagRecyclerView.addView(tv);
         }
-//        foo.add("foo");
-//        foo.add("bar");
-//        holder.mAdapter.addLabels(foo);
-//        holder.mAdapter.notifyDataSetChanged();
-        //holder.contactLabels.setText(contact.getLabels().toString());
-//        holder.contactImage.setImage(null);
     }
 
     // Provide a reference to the views for each data item
@@ -79,11 +65,8 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
         public CircularImageView contactImage;
         public LinearLayout tagRecyclerView;
         public Context mContext;
-//        private LinearLayout.LayoutManager mLayoutManager;
 
         public List<String> mLabels;
-
-        public TagListView mAdapter;
 
         public ContactViewHolder(View v) {
             super(v);
@@ -91,13 +74,6 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
             contactImage = (CircularImageView) v.findViewById(R.id.contact_img);
             tagRecyclerView = (LinearLayout) v.findViewById(R.id.my_tag_recycler_view);
             mContext = v.getContext();
-
-//            tagRecyclerView.setHasFixedSize(true);
-//            mAdapter = new TagListView();
-//            mLayoutManager = new LinearLayoutManager(v.getContext());
-//            tagRecyclerView.setLayoutManager(mLayoutManager);
-//            tagRecyclerView.setAdapter(mAdapter);
-//            mAdapter = new TagListView();
         }
     }
 
@@ -108,7 +84,6 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.user_list_item, parent, false);
-        // set the view's size, margins, paddings and layout parameters
 
         return new ContactViewHolder(v);
     }
