@@ -19,7 +19,6 @@ import java.util.List;
 
 import hackerstolz.de.instact.data.Contact;
 import hackerstolz.de.instact.data.Label;
-import hackerstolz.de.instact.helper.ContactDbHelper;
 
 /**
  * Created by muszy on 26-Sep-15.

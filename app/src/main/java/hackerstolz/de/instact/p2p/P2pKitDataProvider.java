@@ -18,6 +18,7 @@ import ch.uepaa.p2pkit.discovery.InfoTooLongException;
 import ch.uepaa.p2pkit.discovery.P2pListener;
 import ch.uepaa.p2pkit.discovery.Peer;
 import ch.uepaa.p2pkit.discovery.PeersContract;
+import hackerstolz.de.instact.data.Contact;
 
 /**
  * Created by muszy on 26-Sep-15.
@@ -105,6 +106,8 @@ public class P2pKitDataProvider {
                 if(peer.getDiscoveryInfo() != null && peer.getDiscoveryInfo().length > 0) {
                     info = new String(peer.getDiscoveryInfo());
                 }
+                Contact contact= new Contact(info,"","");
+                contact.save();
                 Log.d(TAG, "P2pListener | Peer discovered: " + peer.getNodeId() + " with info: " + info);
             }
 
