@@ -6,4 +6,6 @@
     <dimen name="content_padding_normal">16dp</dimen>
     <dimen name="text_size_subhead">16sp</dimen>
 
+    <dimen name="circular_image_height">46dp</dimen>
+    <dimen name="circular_image_width">46dp</dimen>
 </resources>
