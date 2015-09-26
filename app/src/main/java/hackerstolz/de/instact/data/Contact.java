@@ -22,13 +22,13 @@ public class Contact extends Model {
     @Column(name = "p2pid")
     public String p2pId;
     public List<Label> labels() {
-        return getMany(Label.class, "Label");
+        return getMany(Label.class, "Contact");
     }
     public List<Meeting> meetings() {
-        return getMany(Meeting.class, "Meeting");
+        return getMany(Meeting.class, "Contact");
     }
     public List<String> labelList() {
-        List<Label> labels=getMany(Label.class, "Label");
+        List<Label> labels=getMany(Label.class, "Contact");
         List<String> labelList=new ArrayList<>();
         for (Label label:labels) {
             labelList.add(label.Title);
