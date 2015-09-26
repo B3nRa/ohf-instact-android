@@ -1,6 +1,7 @@
 package hackerstolz.de.instact;
 
 import android.content.SyncStatusObserver;
+import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -72,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         // Bind the tabs to the ViewPager
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabs.setViewPager(mViewPager);
+        tabs.setIndicatorHeight(1);
 
         p2pDataProvider = new P2pKitDataProvider(this, new P2pConnectionListener());
 
