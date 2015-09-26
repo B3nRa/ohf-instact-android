@@ -7,4 +7,7 @@
 
     <string name="title_section1">Already Seen</string>
     <string name="title_section2">All</string>
+
+    <string name="anonymous_user">Clark Gable</string>
+
 </resources>

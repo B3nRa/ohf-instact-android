@@ -15,6 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.astuetz.PagerSlidingTabStrip;
+
 import java.util.Locale;
 
 import ch.uepaa.p2pkit.ConnectionCallbacks;
@@ -58,33 +60,37 @@ public class MainActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        final ActionBar actionBar = getSupportActionBar();
+        // Bind the tabs to the ViewPager
+        PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+        tabs.setViewPager(mViewPager);
 
-        // Specify that tabs should be displayed in the action bar.
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-        // Create a tab listener that is called when the user changes tabs.
-        ActionBar.TabListener tabListener = new ActionBar.TabListener() {
-            public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-                // show the given tab
-            }
-
-            public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
-                // hide the given tab
-            }
-
-            public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
-                // probably ignore this event
-            }
-        };
-
-        // Add 3 tabs, specifying the tab's text and TabListener
-        for (int i = 0; i < 3; i++) {
-            actionBar.addTab(
-                    actionBar.newTab()
-                            .setText("Tab " + (i + 1))
-                            .setTabListener(tabListener));
-        }
+//        final ActionBar actionBar = getSupportActionBar();
+//
+//        // Specify that tabs should be displayed in the action bar.
+//        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+//
+//        // Create a tab listener that is called when the user changes tabs.
+//        ActionBar.TabListener tabListener = new ActionBar.TabListener() {
+//            public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+//                // show the given tab
+//            }
+//
+//            public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+//                // hide the given tab
+//            }
+//
+//            public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+//                // probably ignore this event
+//            }
+//        };
+//
+//        // Add 3 tabs, specifying the tab's text and TabListener
+//        for (int i = 0; i < 3; i++) {
+//            actionBar.addTab(
+//                    actionBar.newTab()
+//                            .setText("Tab " + (i + 1))
+//                            .setTabListener(tabListener));
+//        }
 
         initP2pKit();
     }
@@ -133,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 2;
         }
 
         @Override
