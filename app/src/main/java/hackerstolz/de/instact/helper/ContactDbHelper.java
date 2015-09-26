@@ -23,17 +23,17 @@ public class ContactDbHelper extends SQLiteOpenHelper {
                     ContactEntry.COLUMN_NAME_CONTACT_ID + TEXT_TYPE + COMMA_SEP +
                     ContactEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
                     ContactEntry.COLUMN_NAME_XING + TEXT_TYPE + COMMA_SEP +
-                    ContactEntry.COLUMN_NAME_P2P_ID + TEXT_TYPE + COMMA_SEP +
+                    ContactEntry.COLUMN_NAME_P2P_ID + TEXT_TYPE +
     " );" +
                     "CREATE TABLE " + LabelContract.LabelEntry.TABLE_NAME + " (" +
                     LabelContract.LabelEntry._ID + " INTEGER PRIMARY KEY," +
                     LabelContract.LabelEntry.COLUMN_NAME_CONTACT_ID + TEXT_TYPE + COMMA_SEP +
-                    LabelContract.LabelEntry.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
+                    LabelContract.LabelEntry.COLUMN_NAME_NAME + TEXT_TYPE +
                     " );"+
                     "CREATE TABLE " + MeetingContract.MeetingEntry.TABLE_NAME + " (" +
                     MeetingContract.MeetingEntry._ID + " INTEGER PRIMARY KEY," +
                     MeetingContract.MeetingEntry.COLUMN_NAME_CONTACT_ID + TEXT_TYPE + COMMA_SEP +
-                    MeetingContract.MeetingEntry.COLUMN_NAME_TIME + TEXT_TYPE + COMMA_SEP +
+                    MeetingContract.MeetingEntry.COLUMN_NAME_TIME + DATETIME_TYPE +
                     " )";
 
 
