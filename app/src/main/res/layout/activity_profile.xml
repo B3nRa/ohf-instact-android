@@ -15,10 +15,10 @@
 
         <com.pkmmte.circularimageview.CircularImageView
             android:id="@+id/user_avatar"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="4dp"
             android:scaleType="centerCrop"
             android:src="@drawable/default_avatar_hs"
             android:clickable="true"
@@ -105,10 +105,10 @@
 
     <com.pkmmte.circularimageview.CircularImageView
         android:id="@+id/connect_profile_btn"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="136dp"
+        android:layout_marginTop="140dp"
         android:layout_marginRight="12dp"
         android:src="@drawable/ic_person_add_orange_48dp_2"
         app:civ_border="false"
