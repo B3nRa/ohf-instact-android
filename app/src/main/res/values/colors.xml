@@ -15,4 +15,5 @@
     <color name="theme_accent">#F5A623</color>
     <color name="text_color">#ffffff</color>
     <color name="secondary_color">#F5A623</color>
+    <color name="secondary_color_transparent">#40F5A623</color>
 </resources>
