@@ -19,10 +19,13 @@
     <string name="common_events">Common Events</string>
     <string name="common_friends">Common Friends</string>
     <string name="login_header">Fill out your profile</string>
+    <string name="labels_heading">Labels</string>
 
     <string name="common_events_ex1">IHK Oktoberhackfest, Munich</string>
     <string name="common_events_ex2">EduHacks, Mannheim</string>
     <string name="common_events_ex3">Burda Hackday, Munich</string>
     <string name="common_friends_ex1">Patrick Mueller</string>
     <string name="common_friends_ex2">Benjamina Raethlein</string>
+    <string name="common_friends_ex3">Natalia Karabosova</string>
+    <string name="common_friends_ex4">Chuck Norris</string>
 </resources>
