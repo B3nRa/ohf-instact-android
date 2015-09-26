@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
+import hackerstolz.de.instact.data.Contact;
 import hackerstolz.de.instact.p2p.ConnectionListener;
 import hackerstolz.de.instact.p2p.P2pKitDataProvider;
 
@@ -191,8 +192,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             // specify an adapter (see also next example)
-            List<String> u = new ArrayList<String>();
-            u.add("Foobar");
+            List<Contact> u = new ArrayList<Contact>();
             mAdapter = new ContactListView(u);
             mRecyclerView.setAdapter(mAdapter);
 
