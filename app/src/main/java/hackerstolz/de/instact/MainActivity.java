@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public class P2pConnectionListener implements ConnectionListener {
+        @Override
         public void onConnected() {
             logCurrentPeers();
         }
