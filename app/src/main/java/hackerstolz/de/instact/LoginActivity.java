@@ -8,18 +8,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+
+import java.util.Arrays;
+import java.util.List;
+
+import hackerstolz.de.instact.data.Contact;
+import hackerstolz.de.instact.helper.ContactDbHelper;
 
 /**
  * Created by muszy on 26-Sep-15.
  */
 public class LoginActivity extends AppCompatActivity {
-    private static final String TAG = MainActivity.class.getName();
-
-
+    private static final String TAG = LoginActivity.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Contact.mDbHelper = new ContactDbHelper(this);
         setContentView(R.layout.activity_login);
 
         initViews();
@@ -54,9 +60,26 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "continue clicked");
+                extractAndSaveContactFromViews();
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 LoginActivity.this.startActivity(intent);
             }
         });
+    }
+
+    private void extractAndSaveContactFromViews() {
+        EditText etUserName = (EditText) findViewById(R.id.edittext_username);
+        EditText etTags = (EditText) findViewById(R.id.edittext_tags);
+
+        String userName = etUserName.getText().toString();
+        String rawTags = etTags.getText().toString();
+        List<String> tags = Arrays.asList(rawTags.split(","));
+        String p2pId = "foobar"; // TODO!
+        String xing = "barfoo"; // TODO!
+        try {
+            Contact contact = new Contact(userName, xing, p2pId, tags);
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
     }
 }
