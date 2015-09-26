@@ -3,4 +3,12 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="title_section1">Already Seen</string>
+    <string name="title_section2">All</string>
+
+    <string name="anonymous_user">Clark Gable</string>
+    <string name="username_hint">Your name</string>
+    <string name="btn_continue">Continue</string>
 </resources>

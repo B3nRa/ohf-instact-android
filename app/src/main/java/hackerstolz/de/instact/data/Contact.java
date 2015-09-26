@@ -19,8 +19,28 @@ public class Contact {
     private long id;
     private String xing;
     private String p2pId;
-    static Context context;
-    static ContactDbHelper mDbHelper = new ContactDbHelper(context);
+
+    public String getName() {
+        return name;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getXing() {
+        return xing;
+    }
+
+    public String getP2pId() {
+        return p2pId;
+    }
+
+    public List<String> getLabels() {
+        return labels;
+    }
+
+    public static ContactDbHelper mDbHelper;
     private List<String> labels=new ArrayList<String>();
     public Contact(String name,String xing,String p2pId,List <String> labels) throws Exception {
         this(0,name,xing,p2pId,labels,true);
@@ -253,9 +273,9 @@ public class Contact {
                 ContactContract.ContactEntry.TABLE_NAME,
                 null,
                 values);
-        deleteAllLabel();
+//        deleteAllLabel();
         for (int i = 0; i <labels.size(); i++) {
-            saveLabel(labels.get(i));
+//            saveLabel(labels.get(i));
         }
     }
     private void saveLabel(String name) throws Exception {

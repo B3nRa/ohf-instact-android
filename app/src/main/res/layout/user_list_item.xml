@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    card_view:cardCornerRadius="4dp"
+    android:layout_margin="5dp">>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/content_padding_normal"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true">
+
+        <com.pkmmte.circularimageview.CircularImageView
+            android:id="@+id/contact_img"
+            android:layout_width="@dimen/circular_image_width"
+            android:layout_height="@dimen/circular_image_height"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/content_padding_normal"
+            android:layout_marginEnd="@dimen/content_padding_normal"
+            android:clickable="true"
+            android:src="@drawable/default_avatar"
+            app:civ_border="false"
+            app:civ_selector="true"
+            app:civ_selector_color="@android:color/transparent"
+            app:civ_selector_stroke_color="@color/theme_primary"
+            app:civ_selector_stroke_width="1dp"
+            app:civ_shadow="false"/>
+
+        <TextView
+            android:id="@+id/contact_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_alignTop="@+id/contact_img"
+            android:layout_toRightOf="@+id/contact_img"
+            android:layout_toEndOf="@+id/contact_img"
+            android:text="@string/anonymous_user"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/dark_gray"
+            android:textSize="@dimen/text_size_subhead"/>
+
+        <TextView
+            android:id="@+id/contact_labels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_alignTop="@+id/contact_img"
+            android:layout_toRightOf="@+id/contact_img"
+            android:layout_toEndOf="@+id/contact_img"
+            android:text="@string/anonymous_user"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/dark_gray"
+            android:textSize="@dimen/text_size_subhead"
+            android:background="@drawable/rounded_corner"/>
+
+
+        </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>
