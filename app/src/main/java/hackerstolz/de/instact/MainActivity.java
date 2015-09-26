@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
         // Bind the tabs to the ViewPager
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabs.setViewPager(mViewPager);
-//        tabs.setElevation(100);
 
         p2pDataProvider = new P2pKitDataProvider(this, new P2pConnectionListener());
 
@@ -204,10 +203,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onConnected() {
             logCurrentPeers();
-//            p2pDataProvider = new P2pKitDataProvider(this, new P2pConnectionListener());
-//            List<Contact> peerIds = p2pDataProvider.getCurrentPeerIds();
-//            mPlaceholderFragment.mAdapter.addContacts(peerIds);
-//            mPlaceholderFragment.mAdapter.notifyDataSetChanged();
         }
 
         private void logCurrentPeers() {

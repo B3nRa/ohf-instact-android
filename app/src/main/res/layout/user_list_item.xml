@@ -23,7 +23,6 @@
             android:layout_height="@dimen/circular_image_height"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/content_padding_normal"
             android:layout_marginRight="@dimen/content_padding_normal"
             android:clickable="true"
@@ -49,14 +48,25 @@
             android:textColor="@color/dark_gray"
             android:textSize="@dimen/text_size_subhead" />
 
-        <LinearLayout
+        <!--<LinearLayout-->
+            <!--android:id="@+id/my_tag_recycler_view"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:scrollbars="vertical"-->
+            <!--android:layout_toRightOf="@+id/contact_img"-->
+            <!--android:layout_toEndOf="@+id/contact_img"-->
+            <!--android:layout_below="@id/contact_name"-->
+            <!--android:orientation="horizontal"></LinearLayout>-->
+
+        <hackerstolz.de.instact.FlowLayout
             android:id="@+id/my_tag_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="vertical"
-            android:layout_toRightOf="@+id/contact_img"
+            android:layout_marginLeft="5dip"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/contact_name"
             android:layout_toEndOf="@+id/contact_img"
-            android:layout_below="@id/contact_name"></LinearLayout>
+            android:layout_toRightOf="@+id/contact_img"
+        />
 
 
     </RelativeLayout>

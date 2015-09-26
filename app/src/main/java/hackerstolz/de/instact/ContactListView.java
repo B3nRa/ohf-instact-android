@@ -2,25 +2,18 @@ package hackerstolz.de.instact;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pkmmte.circularimageview.CircularImageView;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import hackerstolz.de.instact.data.Contact;
-import hackerstolz.de.instact.data.Label;
-import hackerstolz.de.instact.tags.TagListView;
 
 public class ContactListView extends RecyclerView.Adapter<ContactListView.ContactViewHolder> {
     public static final String P2P_ID = "p2p_id";
@@ -51,7 +44,6 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
     public void onBindViewHolder(ContactViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-//        holder.cardView.setText(mDataset[position]);
         Contact contact = mContacts.get(position);
         holder.contactName.setText(contact.getName());
         holder.contact = contact;
@@ -59,18 +51,11 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
 
         List<String> labels = contact.labelList();
         LayoutInflater inflater = LayoutInflater.from(holder.mContext);
-
         for(String label : labels) {
             TextView tv = (TextView) inflater.inflate(R.layout.tag_list_item, holder.tagRecyclerView, false);
             tv.setText(label);
-            holder.tagRecyclerView.addView(tv);
+            holder.tagRecyclerView.addView(tv, new FlowLayout.LayoutParams(10, 10));
         }
-//        foo.add("foo");
-//        foo.add("bar");
-//        holder.mAdapter.addLabels(foo);
-//        holder.mAdapter.notifyDataSetChanged();
-        //holder.contactLabels.setText(contact.getLabels().toString());
-//        holder.contactImage.setImage(null);
     }
 
     // Provide a reference to the views for each data item
@@ -80,20 +65,20 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
         // each data item is just a string in this case
         public TextView contactName;
         public CircularImageView contactImage;
-        public LinearLayout tagRecyclerView;
+//        public LinearLayout tagRecyclerView;
+        public FlowLayout tagRecyclerView;
         public Context mContext;
+//        private LinearLayout.LayoutManager mLayoutManager;
         public Contact contact;
 //        private LinearLayout.LayoutManager mLayoutManager;
 
         public List<String> mLabels;
 
-        public TagListView mAdapter;
-
         public ContactViewHolder(View v) {
             super(v);
             contactName = (TextView) v.findViewById(R.id.contact_name);
             contactImage = (CircularImageView) v.findViewById(R.id.contact_img);
-            tagRecyclerView = (LinearLayout) v.findViewById(R.id.my_tag_recycler_view);
+            tagRecyclerView = (FlowLayout) v.findViewById(R.id.my_tag_recycler_view);
             mContext = v.getContext();
 
             v.setOnClickListener(new View.OnClickListener() {
@@ -121,7 +106,6 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.user_list_item, parent, false);
-        // set the view's size, margins, paddings and layout parameters
 
         return new ContactViewHolder(v);
     }
