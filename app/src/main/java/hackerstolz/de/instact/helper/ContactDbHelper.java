@@ -33,7 +33,7 @@ public class ContactDbHelper extends SQLiteOpenHelper {
                     "CREATE TABLE " + MeetingContract.MeetingEntry.TABLE_NAME + " (" +
                     MeetingContract.MeetingEntry._ID + " INTEGER PRIMARY KEY," +
                     MeetingContract.MeetingEntry.COLUMN_NAME_CONTACT_ID + TEXT_TYPE + COMMA_SEP +
-                    MeetingContract.MeetingEntry.COLUMN_NAME_TIME + TEXT_TYPE + COMMA_SEP +
+                    MeetingContract.MeetingEntry.COLUMN_NAME_TIME + DATETIME_TYPE + COMMA_SEP +
                     " )";
 
 
