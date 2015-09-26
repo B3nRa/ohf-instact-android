@@ -54,8 +54,10 @@ public class P2pKitDataProvider {
                     Type t = String[].class;
                     try {
                         String labels[]=gson.fromJson(new String(message), t);
+                        List<String> oldLabels=contact.labelList();
                         for (String label : labels) {
                             Label l = new Label(label, contact);
+                            if(!oldLabels.contains(label))
                             l.save();
                         }
                     }catch (Exception e){
@@ -142,9 +144,12 @@ public class P2pKitDataProvider {
                 String info = "NO_INFO";
                 if (peer.getDiscoveryInfo() != null && peer.getDiscoveryInfo().length > 0) {
                     info = new String(peer.getDiscoveryInfo());
+                    Contact contact = new Contact(info, "xing", peer.getNodeId().toString());
+                    if(Contact.get(peer.getNodeId().toString())==null) {
+                        contact.save();
+                    }
                 }
-                Contact contact = new Contact(info, "xing", peer.getNodeId().toString());
-                contact.save();
+
                 String json = gson.toJson(Contact.get("ME").labelList());
                 boolean forwarded = KitClient.getInstance(mContext).getMessageServices().sendMessage(peer.getNodeId(),
                         TYPE_LABELS, json.getBytes());
