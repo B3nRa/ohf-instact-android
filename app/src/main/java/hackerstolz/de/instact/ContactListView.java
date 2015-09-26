@@ -1,29 +1,19 @@
 package hackerstolz.de.instact;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
 import android.content.Intent;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pkmmte.circularimageview.CircularImageView;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import hackerstolz.de.instact.data.Contact;
-import hackerstolz.de.instact.data.Label;
-import hackerstolz.de.instact.tags.TagListView;
 
 public class ContactListView extends RecyclerView.Adapter<ContactListView.ContactViewHolder> {
     public static final String P2P_ID = "p2p_id";
@@ -61,11 +51,10 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
 
         List<String> labels = contact.labelList();
         LayoutInflater inflater = LayoutInflater.from(holder.mContext);
-        labels = Arrays.asList(new String[]{"foo","foo","foo","foo","foo","foo","foo","foo","foo","foo","foo","foo","foo","foo","foo","foo","foo","foo","foo","foo","foo","foo","foo","foo","foo",});
         for(String label : labels) {
             TextView tv = (TextView) inflater.inflate(R.layout.tag_list_item, holder.tagRecyclerView, false);
             tv.setText(label);
-            holder.tagRecyclerView.addView(tv, new FlowLayout.LayoutParams(5, 5));
+            holder.tagRecyclerView.addView(tv, new FlowLayout.LayoutParams(10, 10));
         }
     }
 
@@ -89,7 +78,7 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
             super(v);
             contactName = (TextView) v.findViewById(R.id.contact_name);
             contactImage = (CircularImageView) v.findViewById(R.id.contact_img);
-            tagRecyclerView = (LinearLayout) v.findViewById(R.id.my_tag_recycler_view);
+            tagRecyclerView = (FlowLayout) v.findViewById(R.id.my_tag_recycler_view);
             mContext = v.getContext();
 
             v.setOnClickListener(new View.OnClickListener() {
