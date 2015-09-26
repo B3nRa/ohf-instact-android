@@ -14,6 +14,13 @@ public class Label extends Model {
     public Contact contact;
     @Column(name = "Title")
     public String Title;
+    public Label(){
+        super();
+    }
+    public Label(String title,Contact contact){
+        this.Title=title;
+        this.contact=contact;
+    }
 
 
 }
