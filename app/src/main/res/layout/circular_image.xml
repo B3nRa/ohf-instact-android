@@ -1,0 +1,18 @@
+<com.pkmmte.circularimageview.CircularImageView
+    android:id="@+id/event_contact_img"
+    android:layout_width="@dimen/circular_image_width"
+    android:layout_height="@dimen/circular_image_height"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_marginEnd="@dimen/content_padding_normal"
+    android:layout_marginRight="@dimen/content_padding_normal"
+    android:clickable="true"
+    android:src="@drawable/default_avatar"
+    app:civ_border="false"
+    app:civ_selector="true"
+    app:civ_selector_color="@android:color/transparent"
+    app:civ_selector_stroke_color="@color/theme_primary"
+    app:civ_selector_stroke_width="1dp"
+    app:civ_shadow="false"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" />
