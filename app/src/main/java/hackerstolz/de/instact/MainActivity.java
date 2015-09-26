@@ -1,5 +1,6 @@
 package hackerstolz.de.instact;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +15,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.astuetz.PagerSlidingTabStrip;
 
@@ -69,7 +72,19 @@ public class MainActivity extends AppCompatActivity {
 
 
         p2pDataProvider = new P2pKitDataProvider(this, new P2pConnectionListener());
-        p2pDataProvider.init();    }
+        p2pDataProvider.init();
+
+        setup();
+    }
+
+    private void setup(){
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(getResources().getColor(R.color.primaryDark));
+        }
+    }
 
 
     @Override
