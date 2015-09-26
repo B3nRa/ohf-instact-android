@@ -218,9 +218,9 @@ public class Contact {
                 ContactContract.ContactEntry.TABLE_NAME,
                 null,
                 values);
-        deleteAllLabel();
+//        deleteAllLabel();
         for (int i = 0; i <labels.size(); i++) {
-            saveLabel(labels.get(i));
+//            saveLabel(labels.get(i));
         }
     }
     private void saveLabel(String name) throws Exception {
