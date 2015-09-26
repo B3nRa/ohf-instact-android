@@ -1,0 +1,80 @@
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+gen/
+out/
+target/
+target/*
+
+#  thumbnail db
+desktop.ini
+.DS_Store
+
+# Maven configuration
+pom.properties
+
+# Eclipse configuration
+.settings
+lint.xml
+
+# Idea non-crucial project fileS
+*.idea
+*.iws
+.idea
+
+# Sandbox stuff
+_sandbox
+
+*target*
+*.war
+*.ear
+
+# eclipse specific git ignore
+*.pydevproject
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# Android Studio
+.idea/*
+.gradle/*
+build/
+.gradle
+/local.properties
+/.idea/workspace.xml
+.DS_Store
+/build
+
+/app/app.iml
+/theme/theme.iml
+/aFileChooser/aFileChooser.iml
+app/app.iml
+theme/theme.iml
+aFileChooser/aFileChooser.iml
+crashlytics-build.properties
+com_crashlytics_export_strings.xml
+*.iml
