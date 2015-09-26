@@ -8,7 +8,9 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -36,21 +38,35 @@ public class P2pKitDataProvider {
     private Context mContext;
     private static Gson gson = new Gson();
     private ConnectionListener mConnectionListener;
-    private final MessageListener mMessageListener = new MessageListener() {
-        @Override
-        public void onStateChanged(int state) {
-            Log.d(TAG, "MessageListener | State changed: " + state);
-        }
+    private final MessageListener mMessageListener;
 
-        @Override
-        public void onMessageReceived(long timestamp, UUID origin, String type, byte[] message) {
-            if(type==TYPE_LABELS){
-                Contact.get(origin.toString());
-
+    {
+        mMessageListener = new MessageListener() {
+            @Override
+            public void onStateChanged(int state) {
+                Log.d(TAG, "MessageListener | State changed: " + state);
             }
-            Log.d(TAG, "MessageListener | Message received: From=" + origin + " type=" + type + " message=" + new String(message));
-        }
-    };
+
+            @Override
+            public void onMessageReceived(long timestamp, UUID origin, String type, byte[] message) {
+                if (type.equals( TYPE_LABELS)) {
+                    Contact contact = Contact.get(origin.toString());
+                    Type t = String[].class;
+                    try {
+                        String labels[]=gson.fromJson(new String(message), t);
+                        for (String label : labels) {
+                            Label l = new Label(label, contact);
+                            l.save();
+                        }
+                    }catch (Exception e){
+                        Log.e(TAG,e.getMessage());
+                    }
+
+                }
+                Log.d(TAG, "MessageListener | Message received: From=" + origin + " type=" + type + " message=" + new String(message));
+            }
+        };
+    }
 
     public P2pKitDataProvider(Context context, ConnectionListener connectionListener) {
         mContext = context;
@@ -129,8 +145,10 @@ public class P2pKitDataProvider {
                 }
                 Contact contact = new Contact(info, "xing", peer.getNodeId().toString());
                 contact.save();
-                boolean forwarded = KitClient.getInstance(mContext).getMessageServices().sendMessage(peer.getNodeId(), "text/plain", gson.toJson(Contact.get("ME").labelList()).getBytes());
-
+                String json = gson.toJson(Contact.get("ME").labelList());
+                boolean forwarded = KitClient.getInstance(mContext).getMessageServices().sendMessage(peer.getNodeId(),
+                        TYPE_LABELS, json.getBytes());
+                Log.d(TAG, "P2pListener | labels send: " + json + " to: " + peer.getNodeId() + " success: " + forwarded);
                 Log.d(TAG, "P2pListener | Peer discovered: " + peer.getNodeId() + " with info: " + info);
             }
 
