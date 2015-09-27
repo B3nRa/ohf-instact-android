@@ -21,7 +21,7 @@
         android:layout_below="@id/login_header"
         android:layout_centerHorizontal="true"
         android:clickable="true"
-        android:src="@drawable/default_avatar2"
+        android:src="@drawable/default_avatar"
         android:scaleType="centerCrop"
         app:civ_border="false"
         app:civ_selector="true"
@@ -37,6 +37,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginRight="64dp"
         android:layout_marginLeft="64dp"
+        android:maxLines="1"
         android:hint="@string/username_hint"
         android:layout_below="@id/add_user_avatar" />
 
@@ -44,9 +45,10 @@
         android:id="@+id/edittext_tags"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:layout_marginRight="64dp"
         android:layout_marginLeft="64dp"
+        android:maxLines="1"
         android:hint="@string/tags_hint"
         android:layout_below="@id/edittext_username" />
 
