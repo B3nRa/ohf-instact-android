@@ -1,6 +1,7 @@
 package hackerstolz.de.instact;
 
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.SyncStatusObserver;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
@@ -22,6 +23,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.astuetz.PagerSlidingTabStrip;
 
@@ -58,13 +60,19 @@ public class MainActivity extends AppCompatActivity {
     private static P2pKitDataProvider p2pDataProvider;
     public static P2pConnectionListener mConnectionListener;
 
-
+    private android.support.v7.widget.Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().setElevation(0);
+//        getSupportActionBar().setElevation(0);
+//        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>netly</font>"));
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        toolbar.setElevation(0);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+     
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>netly</font>"));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -88,6 +96,20 @@ public class MainActivity extends AppCompatActivity {
         p2pDataProvider.init();
 
         setup();
+
+        Intent intent = getIntent();
+        if(intent != null) {
+            String eventName = intent.getStringExtra(EventListView.EVENT_NAME);
+            String eventAddress = intent.getStringExtra(EventListView.EVENT_ADDRESS);
+            if(eventName != null && !eventName.isEmpty()) {
+                TextView tvMain = (TextView) toolbar.findViewById(R.id.toolbar_main_title);
+                tvMain.setText(eventName);
+            }
+            if(eventAddress != null && !eventAddress.isEmpty()) {
+                TextView tvAddress = (TextView) toolbar.findViewById(R.id.toolbar_sub_title);
+                tvAddress.setText(eventAddress);
+            }
+        }
     }
 
     @Override

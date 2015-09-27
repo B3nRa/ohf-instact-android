@@ -3,17 +3,17 @@
     android:layout_height="match_parent"
     tools:context="hackerstolz.de.instact.Main2Activity$PlaceholderFragment">
 
-    <!--<include layout="@layout/toolbar_normal"/>-->
+    <include layout="@layout/toolbar_normal"/>
 
     <!--<TextView android:id="@+id/section_label" android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content" />-->
+    <!--android:layout_height="wrap_content" />-->
     <!-- A RecyclerView with some commonly used attributes -->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/my_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
-        android:layout_below="@+id/pager">
+        android:layout_below="@+id/toolbar">
     </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>

@@ -21,7 +21,10 @@ import hackerstolz.de.instact.data.Meeting;
 /**
  * Created by Benjamin on 27.09.2015.
  */
-public class EventListView extends RecyclerView.Adapter<EventListView.EventViewHolder>{
+public class EventListView extends RecyclerView.Adapter<EventListView.EventViewHolder> {
+    public static final String EVENT_NAME = "event_name";
+    public static final String EVENT_ADDRESS = "event_address";
+
     private List<Meeting> mEvents;
 
     private List<String> eventNames = Arrays.asList(new String[]{
@@ -29,25 +32,25 @@ public class EventListView extends RecyclerView.Adapter<EventListView.EventViewH
     });
 
     private List<String> eventAddresses = Arrays.asList(new String[]{
-       "IHK, Orleansstraße 10, Munich", "To be announced, Mannheim", "Bootcamp, Karlstraße 3, Munich"
+            "IHK, Orleansstraße 10, Munich", "To be announced, Mannheim", "Bootcamp, Karlstraße 3, Munich"
     });
 
     private List<String> eventDates = Arrays.asList(
-      new String[]{
-            "", "17", "22"
-      }
+            new String[]{
+                    "", "17", "22"
+            }
     );
 
     private List<String> eventDatesBelow = Arrays.asList(
             new String[]{
-                   "", "SEP", "OKT"
+                    "", "SEP", "OKT"
             }
     );
 
     private List<String> images = Arrays.asList(new String[]{
-        "random_avatar_01", "random_avatar_02","random_avatar_03","random_avatar_04","random_avatar_05",
-            "random_avatar_06","random_avatar_07","random_avatar_08","random_avatar_09","random_avatar_10",
-            "random_avatar_11","random_avatar_12","random_avatar_13","random_avatar_14","random_avatar_15",
+            "random_avatar_01", "random_avatar_02", "random_avatar_03", "random_avatar_04", "random_avatar_05",
+            "random_avatar_06", "random_avatar_07", "random_avatar_08", "random_avatar_09", "random_avatar_10",
+            "random_avatar_11", "random_avatar_12", "random_avatar_13", "random_avatar_14", "random_avatar_15",
     });
 
     private List<String> numberMembers = Arrays.asList(new String[]{
@@ -59,11 +62,11 @@ public class EventListView extends RecyclerView.Adapter<EventListView.EventViewH
     });
 
 
-    public EventListView(){
+    public EventListView() {
 
     }
 
-    public EventListView(List<Meeting> events){
+    public EventListView(List<Meeting> events) {
         mEvents = events;
     }
 
@@ -82,13 +85,12 @@ public class EventListView extends RecyclerView.Adapter<EventListView.EventViewH
         // - replace the contents of the view with that element
 //        Meeting event = mEvents.get(position);
         holder.mEventName.setText(eventNames.get(position));
-        if(position == 0){
+        if (position == 0) {
             Typeface font = Typeface.createFromAsset(holder.mContext.getApplicationContext().getAssets(), "fontawesome-webfont.ttf");
             holder.mDate.setTypeface(font);
             holder.mDate.setText(R.string.star_icon);
             holder.mDateBelow.setText("NOW");
-        }
-        else {
+        } else {
             holder.mDate.setText(eventDates.get(position));
             holder.mDateBelow.setText(eventDatesBelow.get(position));
         }
@@ -101,11 +103,11 @@ public class EventListView extends RecyclerView.Adapter<EventListView.EventViewH
         LayoutInflater inflater = LayoutInflater.from(holder.mContext);
         int k = 0;
         List<Integer> randoms = new ArrayList<>();
-        while(k < 5) {
+        while (k < 5) {
             int i = -1;
             do {
-                 i = (int) (Math.random() * images.size());
-            }while (randoms.contains(i));
+                i = (int) (Math.random() * images.size());
+            } while (randoms.contains(i));
             randoms.add(i);
 
             String image = images.get(i);
@@ -140,18 +142,10 @@ public class EventListView extends RecyclerView.Adapter<EventListView.EventViewH
     // Create new views (invoked by the layout manager)
     @Override
     public EventViewHolder onCreateViewHolder(ViewGroup parent,
-                                                int viewType) {
+                                              int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.event_list_item, parent, false);
-
-        v.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), MainActivity.class);
-                v.getContext().startActivity(intent);
-            }
-        });
 
         return new EventViewHolder(v);
     }
@@ -164,8 +158,8 @@ public class EventListView extends RecyclerView.Adapter<EventListView.EventViewH
         TextView mDate;
         TextView mDateBelow;
         Context mContext;
-        
-        public EventViewHolder(View v){
+
+        public EventViewHolder(View v) {
             super(v);
             mContactImgWrapper = (LinearLayout) v.findViewById(R.id.event_contact_images);
             mEventName = (TextView) v.findViewById(R.id.event_name);
@@ -173,6 +167,16 @@ public class EventListView extends RecyclerView.Adapter<EventListView.EventViewH
             mDate = (TextView) v.findViewById(R.id.event_date);
             mDateBelow = (TextView) v.findViewById(R.id.event_date_below);
             mContext = v.getContext();
+
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), MainActivity.class);
+                    intent.putExtra(EVENT_NAME, mEventName.getText());
+                    intent.putExtra(EVENT_ADDRESS, mEventAddress.getText());
+                    v.getContext().startActivity(intent);
+                }
+            });
         }
     }
 }
