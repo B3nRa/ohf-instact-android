@@ -21,7 +21,7 @@
         android:layout_below="@id/login_header"
         android:layout_centerHorizontal="true"
         android:clickable="true"
-        android:src="@drawable/default_avatar4"
+        android:src="@drawable/default_avatar2"
         android:scaleType="centerCrop"
         app:civ_border="false"
         app:civ_selector="true"
