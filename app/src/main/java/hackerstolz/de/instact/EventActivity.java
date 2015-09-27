@@ -43,6 +43,9 @@ public class EventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_main2);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>netly</font>"));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp_m);
 
         setup();
 
