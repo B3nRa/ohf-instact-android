@@ -7,6 +7,8 @@
 
     <string name="title_section1">Already Seen</string>
     <string name="title_section2">All</string>
+    <string name="open_drawer">Open Navigation Drawer</string>
+    <string name="close_drawer">Close Navigation Drawer</string>
 
     <string name="anonymous_user">Clark Gable</string>
     <string name="username_hint">Your name</string>

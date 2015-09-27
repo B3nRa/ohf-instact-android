@@ -24,6 +24,7 @@ import ch.uepaa.p2pkit.discovery.P2pListener;
 import ch.uepaa.p2pkit.discovery.Peer;
 import ch.uepaa.p2pkit.discovery.PeersContract;
 import ch.uepaa.p2pkit.messaging.MessageListener;
+import hackerstolz.de.instact.ImageUtils;
 import hackerstolz.de.instact.data.Contact;
 import hackerstolz.de.instact.data.Label;
 
@@ -35,6 +36,7 @@ public class P2pKitDataProvider {
     private static final String TAG = P2pKitDataProvider.class.getName();
     private static final String P2P_KIT_APP_KEY = "eyJzaWduYXR1cmUiOiI0cDRjZzFqUENPQm1BRTFQTis3dm1PZjBiQ0hHU2lueVNWZEdaVlNSUTVPVzJMRENQMjA5S01YSzdueTJKdGRPRXVmc213MmVGZ3NrVEJXakFlM2F1eTdIQklNTXkrMC81RitwbTlBL0p5QjJhVkxmZEZNaEd3UWo2c3EyRDZ4dWRhUkdxODJzNkRaeDFWVnFHN3pwWlpKNHZMU2xrcUVTLytWUUtXWGE3ODA9IiwiYXBwSWQiOjEyNjAsInZhbGlkVW50aWwiOjE2Nzk0LCJhcHBVVVVJRCI6IkMxNzcxQThFLTk0ODYtNDNFRS05NTgxLThBMDUwMzZFMUY4RCJ9";
     private static final String TYPE_LABELS="LABELS";
+    private static final String TYPE_IMAGE="IMAGE";
     private Context mContext;
     private static Gson gson = new Gson();
     private ConnectionListener mConnectionListener;
@@ -65,7 +67,11 @@ public class P2pKitDataProvider {
                     }
 
                 }
-                Log.d(TAG, "MessageListener | Message received: From=" + origin + " type=" + type + " message=" + new String(message));
+                if (type.equals( TYPE_IMAGE)) {
+                   ImageUtils.saveImageAsBase64(new String(message),origin.toString());
+
+                }
+                Log.d(TAG, "MessageListener | Message received: From=" + origin + " type=" + type + " message=" + new String(message).substring(0,30));
             }
         };
     }
@@ -141,6 +147,10 @@ public class P2pKitDataProvider {
 
             @Override
             public void onPeerDiscovered(final Peer peer) {
+                updateData(peer);
+            }
+
+            private void updateData(final Peer peer){
                 String info = "NO_INFO";
                 if (peer.getDiscoveryInfo() != null && peer.getDiscoveryInfo().length > 0) {
                     info = new String(peer.getDiscoveryInfo());
@@ -154,7 +164,11 @@ public class P2pKitDataProvider {
                 boolean forwarded = KitClient.getInstance(mContext).getMessageServices().sendMessage(peer.getNodeId(),
                         TYPE_LABELS, json.getBytes());
                 Log.d(TAG, "P2pListener | labels send: " + json + " to: " + peer.getNodeId() + " success: " + forwarded);
+                forwarded = KitClient.getInstance(mContext).getMessageServices().sendMessage(peer.getNodeId(),
+                        TYPE_IMAGE, ImageUtils.loadImageAsBase64("ME").getBytes());
+                Log.d(TAG, "P2pListener | image send: " + ImageUtils.loadImageAsBase64("ME").substring(0,30) + " to: " + peer.getNodeId() + " success: " + forwarded);
                 Log.d(TAG, "P2pListener | Peer discovered: " + peer.getNodeId() + " with info: " + info);
+
             }
 
             @Override
@@ -169,6 +183,7 @@ public class P2pKitDataProvider {
                     info = new String(peer.getDiscoveryInfo());
                 }
                 Log.d(TAG, "P2pListener | Peer updated: " + peer.getNodeId() + " with new info: " + info);
+                updateData(peer);
             }
         });
         KitClient.getInstance(mContext).getMessageServices().addListener(mMessageListener);
@@ -176,7 +191,7 @@ public class P2pKitDataProvider {
 
     private void setDiscoveryInfo() {
         try {
-            KitClient.getInstance(mContext).getDiscoveryServices().setP2pDiscoveryInfo(("P2P"+Contact.get("ME").name).getBytes());
+            KitClient.getInstance(mContext).getDiscoveryServices().setP2pDiscoveryInfo((""+Contact.get("ME").name).getBytes());
         } catch (InfoTooLongException e) {
             Log.d(TAG, "P2pListener | The discovery info is too long");
         }

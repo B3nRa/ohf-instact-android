@@ -1,16 +1,15 @@
 package hackerstolz.de.instact;
 
 import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.internal.view.SupportActionModeWrapper;
 import android.text.Html;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -29,7 +28,19 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>netly</font>"));
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null) {
+            getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>netly</font>"));
+
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+        }
+        DrawerLayout dl = (DrawerLayout) findViewById(R.id.profile_navdrawer);
+//        ActionBarDrawerToggle abdt = new ActionBarDrawerToggle(this, dl, R.drawable.ic_menu_white_48dp, R.string.open_drawer, R.string.close_drawer) {
+//
+//        };
+//        dl.setDrawerListener(abdt);
+
 
         addTags();
     }
@@ -51,16 +62,16 @@ public class ProfileActivity extends AppCompatActivity {
 
         LayoutInflater inflater = LayoutInflater.from(this);
         int i = 0;
-        for(String tag : tags) {
+        for (String tag : tags) {
             TextView tv = (TextView) inflater.inflate(R.layout.tag_list_item, flowLayout, false);
             tv.setText(tag);
-            if((i % 2) == 0) {
+            if ((i % 2) == 0) {
                 GradientDrawable drawable = (GradientDrawable) tv.getBackground();
 //                drawable.setStroke(1, getResources().getColor(R.color.secondary_color));
                 drawable.setStroke(1, Color.TRANSPARENT);
                 drawable.setColor(getResources().getColor(R.color.secondary_color_transparent));
             } else {
-                GradientDrawable drawable = (GradientDrawable)tv.getBackground();
+                GradientDrawable drawable = (GradientDrawable) tv.getBackground();
                 drawable.setStroke(1, Color.DKGRAY);
                 drawable.setColor(Color.TRANSPARENT);
             }
