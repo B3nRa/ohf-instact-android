@@ -30,11 +30,17 @@ public class ProfileActivity extends AppCompatActivity {
 
     private static List<String> tags;
 
+    private android.support.v7.widget.Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>netly</font>"));
+//        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>netly</font>"));
+
+//        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+//        toolbar.setElevation(0);
+//        setSupportActionBar(toolbar);
 
 //        ActionBar actionBar = getSupportActionBar();
 //        if(actionBar != null) {

@@ -38,10 +38,17 @@ public class EventActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView.Adapter mAdapter;
 
+    private android.support.v7.widget.Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_main2);
+        setContentView(R.layout.activity_event);
+//        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>netly</font>"));
+
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        toolbar.setElevation(0);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>netly</font>"));
 
         setup();

@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--<include layout="@layout/toolbar_normal"/>-->
+
     <RelativeLayout
         android:id="@+id/profile_activity_root"
         android:layout_width="match_parent"
