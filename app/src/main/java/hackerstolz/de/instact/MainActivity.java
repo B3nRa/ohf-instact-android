@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
         private static final String ARG_SECTION_NUMBER = "section_number";
 
         private RecyclerView mRecyclerView;
-        private ContactListView mAdapter;
+        public ContactListView mAdapter;
         private RecyclerView.LayoutManager mLayoutManager;
 
         /**
@@ -184,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
                 contacts = new ArrayList<>();
             }
             mAdapter = new ContactListView(contacts);
+           // mAdapter.notifyDataSetChanged();
             mRecyclerView.setAdapter(mAdapter);
 
 
@@ -194,10 +195,26 @@ public class MainActivity extends AppCompatActivity {
     public class P2pConnectionListener implements ConnectionListener {
         private PlaceholderFragment mPlaceholderFragment;
 
+
         P2pConnectionListener(){}
 
         P2pConnectionListener(PlaceholderFragment fragment){
             mPlaceholderFragment = fragment;
+        }
+
+        @Override
+        public void onNewContact(Contact contact){
+          /*  mPlaceholderFragment.mAdapter.clear();
+            mPlaceholderFragment.mAdapter.notifyDataSetChanged();
+            List<Contact> contacts = null;
+            try {
+                contacts = Contact.getAll();
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+                contacts = new ArrayList<>();
+            }
+            mPlaceholderFragment.mAdapter.addContacts(contacts);
+            mPlaceholderFragment.mAdapter.notifyDataSetChanged();*/
         }
 
         @Override

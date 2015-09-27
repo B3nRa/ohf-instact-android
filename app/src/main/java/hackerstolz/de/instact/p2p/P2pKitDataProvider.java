@@ -158,6 +158,7 @@ public class P2pKitDataProvider {
                     Contact contact = new Contact(info, "xing", peer.getNodeId().toString());
                     if(Contact.get(peer.getNodeId().toString())==null) {
                         contact.save();
+                        mConnectionListener.onNewContact(contact);
                     }
                 }
 

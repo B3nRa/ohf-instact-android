@@ -23,6 +23,9 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
     public ContactListView(List<Contact> contacts) {
         mContacts = contacts;
     }
+    public void clear(){
+        mContacts.clear();
+    }
 
     public void addContact(Contact contact){
         mContacts.add(contact);
