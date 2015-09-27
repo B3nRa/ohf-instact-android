@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +14,12 @@ import android.widget.TextView;
 
 import com.pkmmte.circularimageview.CircularImageView;
 
-import java.util.Arrays;
 import java.util.List;
 
 import hackerstolz.de.instact.data.Contact;
 
 public class ContactListView extends RecyclerView.Adapter<ContactListView.ContactViewHolder> {
+    public static final String TAG = ContactListView.class.getName();
     public static final String P2P_ID = "p2p_id";
     private List<Contact> mContacts;
 
@@ -27,11 +28,15 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
         mContacts = contacts;
     }
 
-    public void addContact(Contact contact){
+    public void clear() {
+        mContacts.clear();
+    }
+
+    public void addContact(Contact contact) {
         mContacts.add(contact);
     }
 
-    public void addContacts(List<Contact> contacts){
+    public void addContacts(List<Contact> contacts) {
         mContacts.addAll(contacts);
     }
 
@@ -52,9 +57,32 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
         holder.contact = contact;
         //TODO: add image here
 
+        String p2pid = "";
+        if (contact != null) {
+            p2pid = contact.p2pId;
+            Log.d(TAG, "loading image for: " + p2pid);
+            String imageData = ImageUtils.loadImageAsBase64(p2pid);
+            Log.d(TAG, "got data: " + imageData);
+            byte[] imageAsBytes = Base64.decode(imageData.getBytes(), Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
+            holder.contactImage.setImageBitmap(bitmap);
+        }
+
+        final String payLoadId = p2pid;
+        final Context context = holder.mContext;
+        holder.contactImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ProfileActivity.class);
+                intent.putExtra(P2P_ID, payLoadId);
+                context.startActivity(intent);
+            }
+        });
+
+
         List<String> labels = contact.labelList();
         LayoutInflater inflater = LayoutInflater.from(holder.mContext);
-        for(String label : labels) {
+        for (String label : labels) {
             TextView tv = (TextView) inflater.inflate(R.layout.tag_list_item, holder.tagRecyclerView, false);
             tv.setText(label);
             holder.tagRecyclerView.addView(tv, new FlowLayout.LayoutParams(10, 10));
@@ -68,10 +96,10 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
         // each data item is just a string in this case
         public TextView contactName;
         public CircularImageView contactImage;
-//        public LinearLayout tagRecyclerView;
+        //        public LinearLayout tagRecyclerView;
         public FlowLayout tagRecyclerView;
         public Context mContext;
-//        private LinearLayout.LayoutManager mLayoutManager;
+        //        private LinearLayout.LayoutManager mLayoutManager;
         public Contact contact;
 //        private LinearLayout.LayoutManager mLayoutManager;
 
@@ -83,22 +111,6 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
             contactImage = (CircularImageView) v.findViewById(R.id.contact_img);
             tagRecyclerView = (FlowLayout) v.findViewById(R.id.my_tag_recycler_view);
             mContext = v.getContext();
-
-            CircularImageView imageView = (CircularImageView) v.findViewById(R.id.contact_img);
-            String p2pid = contact.p2pId;
-            String imageData = ImageUtils.loadImageAsBase64(p2pid);
-            byte[] imageAsBytes = Base64.decode(imageData.getBytes(), Base64.DEFAULT);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
-            imageView.setImageBitmap(bitmap);
-
-            v.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(mContext, ProfileActivity.class);
-                    intent.putExtra(P2P_ID, contact.p2pId);
-                    mContext.startActivity(intent);
-                }
-            });
 
 //            tagRecyclerView.setHasFixedSize(true);
 //            mAdapter = new TagListView();
@@ -112,7 +124,7 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
     // Create new views (invoked by the layout manager)
     @Override
     public ContactViewHolder onCreateViewHolder(ViewGroup parent,
-                                                   int viewType) {
+                                                int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.user_list_item, parent, false);

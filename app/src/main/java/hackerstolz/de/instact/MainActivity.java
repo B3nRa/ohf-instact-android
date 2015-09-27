@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
      */
     ViewPager mViewPager;
 
-    private P2pKitDataProvider p2pDataProvider;
-
+    private static P2pKitDataProvider p2pDataProvider;
+    public static P2pConnectionListener mConnectionListener;
 
 
 
@@ -76,11 +76,10 @@ public class MainActivity extends AppCompatActivity {
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabs.setViewPager(mViewPager);
 
-        p2pDataProvider = new P2pKitDataProvider(this, new P2pConnectionListener());
+        mConnectionListener = new P2pConnectionListener();
+        p2pDataProvider = new P2pKitDataProvider(this, mConnectionListener);
 
         p2pDataProvider.init();
-
-
 
         setup();
     }
@@ -141,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
         private static final String ARG_SECTION_NUMBER = "section_number";
 
         private RecyclerView mRecyclerView;
-        private ContactListView mAdapter;
+        public ContactListView mAdapter;
         private RecyclerView.LayoutManager mLayoutManager;
 
         /**
@@ -153,6 +152,8 @@ public class MainActivity extends AppCompatActivity {
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
+            mConnectionListener.setFragment(fragment);
+
             return fragment;
         }
 
@@ -184,20 +185,46 @@ public class MainActivity extends AppCompatActivity {
                 contacts = new ArrayList<>();
             }
             mAdapter = new ContactListView(contacts);
-
             mRecyclerView.setAdapter(mAdapter);
+
 
             return rootView;
         }
     }
 
     public class P2pConnectionListener implements ConnectionListener {
-        private PlaceholderFragment mPlaceholderFragment;
+        P2pConnectionListener(){
+            mFragments = new ArrayList<>();
+        }
 
-        P2pConnectionListener(){}
+        private List<PlaceholderFragment> mFragments;
 
-        P2pConnectionListener(PlaceholderFragment fragment){
-            mPlaceholderFragment = fragment;
+        public void setFragment(PlaceholderFragment fragment) {
+            Log.d(TAG, "setting fragment");
+            mFragments.add(fragment);
+        }
+
+        @Override
+        public void onNewContact(Contact contact){
+            dataSetChanged();
+        }
+
+        @Override
+        public void dataSetChanged() {
+            List<Contact> contacts = new ArrayList<>();
+            try {
+                contacts = Contact.getAll();
+            } catch (Exception e) {
+                Log.e(TAG, "Error on udate: " + e.getMessage());
+            }
+
+            if(!mFragments.isEmpty()) {
+                for(PlaceholderFragment mFragment : mFragments) {
+                    mFragment.mAdapter.clear();
+                    mFragment.mAdapter = new ContactListView(contacts);
+                    Log.d(TAG, "new adapter set");
+                }
+            }
         }
 
         @Override

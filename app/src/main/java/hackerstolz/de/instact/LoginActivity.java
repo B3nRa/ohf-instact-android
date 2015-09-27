@@ -98,14 +98,14 @@ public class LoginActivity extends AppCompatActivity {
         String userName = etUserName.getText().toString();
         String rawTags = etTags.getText().toString();
         List<String> tags = Arrays.asList(rawTags.split(","));
-        String p2pId = "ME"; // TODO!
+        String p2pId = "ME";
         String xing = "barfoo"; // TODO!
         try {
             Contact contact = new Contact(userName, xing, p2pId);
             contact.save();
-            ImageUtils.saveUserImage(userAvatar, p2pId);
-            for (String label :tags){
-                Label l=new Label(label,contact);
+            ImageUtils.saveUserImage(ImageUtils.shrinkBitmap(userAvatar), p2pId);
+            for (String label : tags) {
+                Label l = new Label(label, contact);
                 l.save();
             }
         } catch (Exception e) {
