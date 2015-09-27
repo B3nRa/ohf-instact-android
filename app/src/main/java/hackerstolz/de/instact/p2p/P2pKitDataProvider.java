@@ -24,6 +24,7 @@ import ch.uepaa.p2pkit.discovery.P2pListener;
 import ch.uepaa.p2pkit.discovery.Peer;
 import ch.uepaa.p2pkit.discovery.PeersContract;
 import ch.uepaa.p2pkit.messaging.MessageListener;
+import hackerstolz.de.instact.ImageUtils;
 import hackerstolz.de.instact.data.Contact;
 import hackerstolz.de.instact.data.Label;
 
@@ -35,6 +36,7 @@ public class P2pKitDataProvider {
     private static final String TAG = P2pKitDataProvider.class.getName();
     private static final String P2P_KIT_APP_KEY = "eyJzaWduYXR1cmUiOiI0cDRjZzFqUENPQm1BRTFQTis3dm1PZjBiQ0hHU2lueVNWZEdaVlNSUTVPVzJMRENQMjA5S01YSzdueTJKdGRPRXVmc213MmVGZ3NrVEJXakFlM2F1eTdIQklNTXkrMC81RitwbTlBL0p5QjJhVkxmZEZNaEd3UWo2c3EyRDZ4dWRhUkdxODJzNkRaeDFWVnFHN3pwWlpKNHZMU2xrcUVTLytWUUtXWGE3ODA9IiwiYXBwSWQiOjEyNjAsInZhbGlkVW50aWwiOjE2Nzk0LCJhcHBVVVVJRCI6IkMxNzcxQThFLTk0ODYtNDNFRS05NTgxLThBMDUwMzZFMUY4RCJ9";
     private static final String TYPE_LABELS="LABELS";
+    private static final String TYPE_IMAGE="IMAGE";
     private Context mContext;
     private static Gson gson = new Gson();
     private ConnectionListener mConnectionListener;
@@ -63,6 +65,10 @@ public class P2pKitDataProvider {
                     }catch (Exception e){
                         Log.e(TAG,e.getMessage());
                     }
+
+                }
+                if (type.equals( TYPE_IMAGE)) {
+                   ImageUtils.saveImageAsBase64(new String(message),origin.toString());
 
                 }
                 Log.d(TAG, "MessageListener | Message received: From=" + origin + " type=" + type + " message=" + new String(message));
@@ -154,6 +160,9 @@ public class P2pKitDataProvider {
                 boolean forwarded = KitClient.getInstance(mContext).getMessageServices().sendMessage(peer.getNodeId(),
                         TYPE_LABELS, json.getBytes());
                 Log.d(TAG, "P2pListener | labels send: " + json + " to: " + peer.getNodeId() + " success: " + forwarded);
+                 forwarded = KitClient.getInstance(mContext).getMessageServices().sendMessage(peer.getNodeId(),
+                        TYPE_IMAGE, ImageUtils.loadImageAsBase64("ME").getBytes());
+                Log.d(TAG, "P2pListener | image send: " + ImageUtils.loadImageAsBase64("ME") + " to: " + peer.getNodeId() + " success: " + forwarded);
                 Log.d(TAG, "P2pListener | Peer discovered: " + peer.getNodeId() + " with info: " + info);
             }
 
