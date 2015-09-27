@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.pkmmte.circularimageview.CircularImageView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,14 +26,20 @@ public class EventListView extends RecyclerView.Adapter<EventListView.EventViewH
             "IHK - Oktoberhackfest", "Refugee Hacks", "Burda Bootcamp"
     });
 
+    private List<String> eventAddresses = Arrays.asList(new String[]{
+       "IHK, Orleansstraße 10, Munich", "To be announced, Mannheim", "Bootcamp, Karlstraße 3, Munich"
+    });
+
     private List<String> eventDates = Arrays.asList(
       new String[]{
-              "24.12.2014", "28.04.2011", "22.03.2009"
+             "27.09.2011",  "17.10.2015", "22.03.2009"
       }
     );
 
     private List<String> images = Arrays.asList(new String[]{
-
+        "random_avatar_01", "random_avatar_02","random_avatar_03","random_avatar_04","random_avatar_05",
+            "random_avatar_06","random_avatar_07","random_avatar_08","random_avatar_09","random_avatar_10",
+            "random_avatar_11","random_avatar_12","random_avatar_13","random_avatar_14","random_avatar_15",
     });
 
     public EventListView(){
@@ -47,7 +54,7 @@ public class EventListView extends RecyclerView.Adapter<EventListView.EventViewH
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mEvents.size();
+        return eventNames.size();
     }
 
 
@@ -59,15 +66,26 @@ public class EventListView extends RecyclerView.Adapter<EventListView.EventViewH
 //        Meeting event = mEvents.get(position);
         holder.mEventName.setText(eventNames.get(position));
         holder.mDate.setText(eventDates.get(position));
+        holder.mEventAddress.setText(eventAddresses.get(position));
 
-        int i = (int) (Math.random() * images.size());
 //        String img = images.get(i);
         LayoutInflater inflater = LayoutInflater.from(holder.mContext);
-        for(String image : images) {
+        int k = 0;
+        List<Integer> randoms = new ArrayList<>();
+        while(k < 5) {
+            int i = -1;
+            do {
+                 i = (int) (Math.random() * images.size());
+            }while (randoms.contains(i));
+            randoms.add(i);
+
+            String image = images.get(i);
             CircularImageView bv = (CircularImageView) inflater.inflate(R.layout.circular_image, holder.mContactImgWrapper, false);
-            int resID = holder.mContext.getResources().getIdentifier(image, "drawable", "hackerstolz.de");
+            int resID = holder.mContext.getApplicationContext().getResources().getIdentifier(image, "drawable", "hackerstolz.de.instact");
+//            bv.setBackgroundResource(resID);
             bv.setImageResource(resID);
-            holder.mContactImgWrapper.addView(bv, new FlowLayout.LayoutParams(10, 10));
+            holder.mContactImgWrapper.addView(bv);
+            k++;
         }
         //TODO: add image here
     }
@@ -87,6 +105,7 @@ public class EventListView extends RecyclerView.Adapter<EventListView.EventViewH
 
         LinearLayout mContactImgWrapper;
         TextView mEventName;
+        TextView mEventAddress;
         TextView mDate;
         Context mContext;
         
@@ -94,6 +113,7 @@ public class EventListView extends RecyclerView.Adapter<EventListView.EventViewH
             super(v);
             mContactImgWrapper = (LinearLayout) v.findViewById(R.id.event_contact_images);
             mEventName = (TextView) v.findViewById(R.id.event_name);
+            mEventAddress = (TextView) v.findViewById(R.id.event_address);
             mDate = (TextView) v.findViewById(R.id.event_date);
             mContext = v.getContext();
         }
