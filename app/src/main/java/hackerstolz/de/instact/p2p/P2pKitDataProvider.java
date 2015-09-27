@@ -52,9 +52,10 @@ public class P2pKitDataProvider {
             @Override
             public void onMessageReceived(long timestamp, UUID origin, String type, byte[] message) {
                 if (type.equals( TYPE_LABELS)) {
-                    Contact contact = Contact.get(origin.toString());
-                    Type t = String[].class;
+
                     try {
+                        Contact contact = Contact.get(origin.toString());
+                        Type t = String[].class;
                         String labels[]=gson.fromJson(new String(message), t);
                         List<String> oldLabels=contact.labelList();
                         for (String label : labels) {
@@ -63,7 +64,7 @@ public class P2pKitDataProvider {
                             l.save();
                         }
                     }catch (Exception e){
-                        Log.e(TAG,e.getMessage());
+                        Log.e(TAG,""+e.getMessage());
                     }
 
                 }
@@ -71,7 +72,7 @@ public class P2pKitDataProvider {
                    ImageUtils.saveImageAsBase64(new String(message),origin.toString());
 
                 }
-                Log.d(TAG, "MessageListener | Message received: From=" + origin + " type=" + type + " message=" + new String(message).substring(0,30));
+                Log.d(TAG, "MessageListener | Message received: From=" + origin + " type=" + type + " message=" + new String(message).substring(0,new String(message).length()<30?new String(message).length():30));
             }
         };
     }
@@ -166,7 +167,7 @@ public class P2pKitDataProvider {
                 Log.d(TAG, "P2pListener | labels send: " + json + " to: " + peer.getNodeId() + " success: " + forwarded);
                 forwarded = KitClient.getInstance(mContext).getMessageServices().sendMessage(peer.getNodeId(),
                         TYPE_IMAGE, ImageUtils.loadImageAsBase64("ME").getBytes());
-                Log.d(TAG, "P2pListener | image send: " + ImageUtils.loadImageAsBase64("ME").substring(0,30) + " to: " + peer.getNodeId() + " success: " + forwarded);
+                Log.d(TAG, "P2pListener | image send: " + ImageUtils.loadImageAsBase64("ME").substring(0,new String(ImageUtils.loadImageAsBase64("ME")).length()<30?new String(ImageUtils.loadImageAsBase64("ME")).length():30) + " to: " + peer.getNodeId() + " success: " + forwarded);
                 Log.d(TAG, "P2pListener | Peer discovered: " + peer.getNodeId() + " with info: " + info);
 
             }
