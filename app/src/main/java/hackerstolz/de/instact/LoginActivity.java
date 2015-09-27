@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
                 l.save();
             }
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Log.e(TAG, "" + e.getMessage());
         }
     }
 
