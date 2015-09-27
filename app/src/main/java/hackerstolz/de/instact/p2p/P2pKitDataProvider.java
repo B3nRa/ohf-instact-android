@@ -4,11 +4,10 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -55,13 +54,15 @@ public class P2pKitDataProvider {
 
                     try {
                         Contact contact = Contact.get(origin.toString());
-                        Type t = String[].class;
-                        String labels[]=gson.fromJson(new String(message), t);
-                        List<String> oldLabels=contact.labelList();
-                        for (String label : labels) {
-                            Label l = new Label(label, contact);
-                            if(!oldLabels.contains(label))
-                            l.save();
+                        if (contact!=null) {
+                            Type t = String[].class;
+                            String labels[] = gson.fromJson(new String(message), t);
+                            List<String> oldLabels = contact.labelList();
+                            for (String label : labels) {
+                                Label l = new Label(label, contact);
+                                if (!oldLabels.contains(label))
+                                    l.save();
+                            }
                         }
                     }catch (Exception e){
                         Log.e(TAG,""+e.getMessage());
@@ -158,20 +159,16 @@ public class P2pKitDataProvider {
                     Contact contact = new Contact(info, "xing", peer.getNodeId().toString());
                     if(Contact.get(peer.getNodeId().toString())==null) {
                         contact.save();
+                        new sendInfos().execute(peer);
                         mConnectionListener.onNewContact(contact);
                     }
                 }
 
-                String json = gson.toJson(Contact.get("ME").labelList());
-                boolean forwarded = KitClient.getInstance(mContext).getMessageServices().sendMessage(peer.getNodeId(),
-                        TYPE_LABELS, json.getBytes());
-                Log.d(TAG, "P2pListener | labels send: " + json + " to: " + peer.getNodeId() + " success: " + forwarded);
-                forwarded = KitClient.getInstance(mContext).getMessageServices().sendMessage(peer.getNodeId(),
-                        TYPE_IMAGE, ImageUtils.loadImageAsBase64("ME").getBytes());
-                Log.d(TAG, "P2pListener | image send: " + ImageUtils.loadImageAsBase64("ME").substring(0,new String(ImageUtils.loadImageAsBase64("ME")).length()<30?new String(ImageUtils.loadImageAsBase64("ME")).length():30) + " to: " + peer.getNodeId() + " success: " + forwarded);
-                Log.d(TAG, "P2pListener | Peer discovered: " + peer.getNodeId() + " with info: " + info);
+              Log.d(TAG, "P2pListener | Peer discovered: " + peer.getNodeId() + " with info: " + info);
 
             }
+
+
 
             @Override
             public void onPeerLost(final Peer peer) {
@@ -196,6 +193,51 @@ public class P2pKitDataProvider {
             KitClient.getInstance(mContext).getDiscoveryServices().setP2pDiscoveryInfo((""+Contact.get("ME").name).getBytes());
         } catch (InfoTooLongException e) {
             Log.d(TAG, "P2pListener | The discovery info is too long");
+        }
+    }
+    public class sendInfos extends AsyncTask<Peer, Void, String> {
+
+        @Override
+        protected void onPostExecute(String result) {
+        }
+
+        @Override
+        protected String doInBackground(Peer... peers) {
+            Peer peer=peers[0];
+            String json = gson.toJson(Contact.get("ME").labelList());
+
+            while (!KitClient.getInstance(mContext).getMessageServices().sendMessage(peer.getNodeId(),
+                    TYPE_LABELS, json.getBytes())){
+                Log.d(TAG,"labels where not send....wait 5 sec");
+                try {
+                    Thread.sleep(5);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            Log.d(TAG, "P2pListener | labels send: " + json + " to: " + peer.getNodeId() + " success: " + true);
+            while(!KitClient.getInstance(mContext).getMessageServices().sendMessage(peer.getNodeId(),
+                    TYPE_IMAGE, ImageUtils.loadImageAsBase64("ME").getBytes())){
+                Log.d(TAG,"image where not send....wait 5 sec");
+                try {
+                    Thread.sleep(5);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            Log.d(TAG, "P2pListener | image send: " + ImageUtils.loadImageAsBase64("ME")
+                    .substring(0,new String(ImageUtils.loadImageAsBase64("ME")).length()<30?new String(ImageUtils.loadImageAsBase64("ME"))
+                            .length():30) + " to: " + peer.getNodeId() + " success: " + true);
+
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
         }
     }
 }
