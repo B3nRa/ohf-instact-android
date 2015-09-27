@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ import hackerstolz.de.instact.data.Contact;
 public class ProfileActivity extends AppCompatActivity {
 
     private static final String TAG = ProfileActivity.class.getName();
+    private static final String ADD = "Add Label +";
 
     private static List<String> tags;
 
@@ -36,24 +38,10 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-//        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>netly</font>"));
-
-//        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-//        toolbar.setElevation(0);
-//        setSupportActionBar(toolbar);
-
-//        ActionBar actionBar = getSupportActionBar();
-//        if(actionBar != null) {
-//            getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>netly</font>"));
-//
-//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//            getSupportActionBar().setHomeButtonEnabled(true);
-//        }
-//        DrawerLayout dl = (DrawerLayout) findViewById(R.id.profile_navdrawer);
-//        ActionBarDrawerToggle abdt = new ActionBarDrawerToggle(this, dl, R.drawable.ic_menu_white_48dp, R.string.open_drawer, R.string.close_drawer) {
-//
-//        };
-//        dl.setDrawerListener(abdt);
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>netly</font>"));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp_m);
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -109,6 +97,19 @@ public class ProfileActivity extends AppCompatActivity {
             flowLayout.addView(tv, new FlowLayout.LayoutParams(10, 10));
         }
 
+        // add edit tag
+        TextView tv = (TextView) inflater.inflate(R.layout.tag_list_item, flowLayout, false);
+        tv.setText(ADD);
+        GradientDrawable drawable = (GradientDrawable) tv.getBackground();
+        drawable.setStroke(1, Color.TRANSPARENT);
+        drawable.setColor(getResources().getColor(R.color.primary_color_transparent));
+        flowLayout.addView(tv, new FlowLayout.LayoutParams(10, 10));
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handleEditTag();
+            }
+        });
     }
 
     private void addFakeTags() {
@@ -145,5 +146,23 @@ public class ProfileActivity extends AppCompatActivity {
 
             flowLayout.addView(tv, new FlowLayout.LayoutParams(10, 10));
         }
+
+        // add edit tag
+        TextView tv = (TextView) inflater.inflate(R.layout.tag_list_item, flowLayout, false);
+        tv.setText(ADD);
+        GradientDrawable drawable = (GradientDrawable) tv.getBackground();
+        drawable.setStroke(1, Color.TRANSPARENT);
+        drawable.setColor(getResources().getColor(R.color.primary_color_transparent));
+        flowLayout.addView(tv, new FlowLayout.LayoutParams(10, 10));
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handleEditTag();
+            }
+        });
+    }
+
+    private void handleEditTag() {
+        Log.d(TAG, "Edit Tag Pressed!!");
     }
 }

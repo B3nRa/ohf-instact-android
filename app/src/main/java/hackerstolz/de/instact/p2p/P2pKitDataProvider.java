@@ -161,9 +161,9 @@ public class P2pKitDataProvider {
                     Contact contact = new Contact(info, "xing", peer.getNodeId().toString());
                     if(Contact.get(peer.getNodeId().toString())==null) {
                         contact.save();
-                        new sendInfos().execute(peer);
                         mConnectionListener.onNewContact(contact);
                     }
+                    new sendInfos().execute(peer);
                 }
 
               Log.d(TAG, "P2pListener | Peer discovered: " + peer.getNodeId() + " with info: " + info);
@@ -213,7 +213,7 @@ public class P2pKitDataProvider {
                     TYPE_LABELS, json.getBytes())){
                 Log.d(TAG,"labels where not send....wait 5 sec");
                 try {
-                    Thread.sleep(5);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -223,7 +223,7 @@ public class P2pKitDataProvider {
                     TYPE_IMAGE, ImageUtils.loadImageAsBase64("ME").getBytes())){
                 Log.d(TAG,"image where not send....wait 5 sec");
                 try {
-                    Thread.sleep(5);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

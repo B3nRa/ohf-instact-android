@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.activeandroid.ActiveAndroid;
@@ -75,6 +76,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void initViews() {
         Button continueButton = (Button) findViewById(R.id.continue_button);
+        ImageButton linkedInButton = (ImageButton) findViewById(R.id.linkedin_button);
         mCircularAvatar = (CircularImageView) findViewById(R.id.add_user_avatar);
 
         continueButton.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +95,17 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
                 startActivityForResult(intent, RC_USER_IMAGE);
+            }
+        });
+
+        linkedInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText etUserName = (EditText) findViewById(R.id.edittext_username);
+                EditText etTags = (EditText) findViewById(R.id.edittext_tags);
+                mCircularAvatar.setImageResource(R.drawable.random_avatar_04);
+                etUserName.setText("Natalia Karbasova");
+                etTags.setText("Data journalism, Multimedia-Journalismis, Intrapreneurship, Rapid Prototyping");
             }
         });
     }
@@ -115,7 +128,7 @@ public class LoginActivity extends AppCompatActivity {
                 l.save();
             }
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Log.e(TAG, "" + e.getMessage());
         }
     }
 
