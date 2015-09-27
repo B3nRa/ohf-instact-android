@@ -22,14 +22,6 @@
         <!--android:textColor="@color/text_color"-->
         <!--android:textSize="12dp" />-->
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="refrash"
-        android:id="@+id/button"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true" />
-
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"

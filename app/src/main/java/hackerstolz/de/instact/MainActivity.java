@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
      
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>netly</font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Getly</font>"));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp_m);

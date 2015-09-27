@@ -41,7 +41,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>netly</font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Getly</font>"));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp_m);

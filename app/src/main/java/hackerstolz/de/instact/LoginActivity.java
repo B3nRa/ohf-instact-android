@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         toolbar.setElevation(0);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>netly</font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Getly</font>"));
 
         Configuration.Builder configurationBuilder = new Configuration.Builder(this);
         configurationBuilder.addModelClass(Contact.class);
