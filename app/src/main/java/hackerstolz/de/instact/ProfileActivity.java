@@ -3,7 +3,11 @@ package hackerstolz.de.instact;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.internal.view.SupportActionModeWrapper;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.widget.TextView;
@@ -24,7 +28,19 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>netly</font>"));
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null) {
+            getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>netly</font>"));
+
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+        }
+        DrawerLayout dl = (DrawerLayout) findViewById(R.id.profile_navdrawer);
+//        ActionBarDrawerToggle abdt = new ActionBarDrawerToggle(this, dl, R.drawable.ic_menu_white_48dp, R.string.open_drawer, R.string.close_drawer) {
+//
+//        };
+//        dl.setDrawerListener(abdt);
+
 
         addTags();
     }
