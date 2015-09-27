@@ -4,6 +4,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include layout="@layout/toolbar"/>
+
+    <!--<TextView-->
+        <!--android:id="@+id/event_detail_title"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="IHK Oktoberfest"-->
+        <!--android:textColor="@color/text_color"-->
+        <!--android:textSize="12dp" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/event_detail_subtitle"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="IHK Oktoberfest"-->
+        <!--android:textColor="@color/text_color"-->
+        <!--android:textSize="12dp" />-->
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="refrash"
+        android:id="@+id/button"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true" />
+
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
@@ -11,7 +37,7 @@
         android:layout_below="@+id/tabs"
         tools:context=".MainActivity">
 
-    </android.support.v4.view.ViewPager>
+        </android.support.v4.view.ViewPager>
 
     <com.astuetz.PagerSlidingTabStrip
         android:id="@+id/tabs"
@@ -22,7 +48,18 @@
         android:textColor="#FFFFFF"
         app:pstsIndicatorColor="@color/secondary_color"
         app:pstsIndicatorHeight="10px"
-        app:pstsShouldExpand="true" />
+        app:pstsShouldExpand="true"
+        android:layout_below="@+id/toolbar"/>
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tabs"
+        tools:context=".MainActivity">
+
+        </android.support.v4.view.ViewPager>
 
 </RelativeLayout>
 
