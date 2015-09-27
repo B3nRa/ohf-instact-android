@@ -55,6 +55,7 @@
         android:singleLine="true" />
 
     <ImageButton
+        android:id="@+id/linkedin_button"
         android:src="@drawable/linkedin_button"
         android:layout_width="match_parent"
         android:layout_height="48dp"
