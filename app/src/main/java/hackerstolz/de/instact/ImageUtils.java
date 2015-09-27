@@ -77,6 +77,9 @@ public class ImageUtils {
     }
 
     public static void saveUserImage(Bitmap bitmap, String fileName) {
+        if(bitmap == null || fileName == null) {
+            return;
+        }
         String root = Environment.getExternalStorageDirectory().toString();
         File myDir = new File(root + "/netly_images");
         myDir.mkdirs();
@@ -106,6 +109,9 @@ public class ImageUtils {
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
         try {
             bitmap = BitmapFactory.decodeStream(new FileInputStream(f), null, options);
+            if(bitmap == null) {
+                return base64image;
+            }
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
             byte[] byteArray = byteArrayOutputStream.toByteArray();
