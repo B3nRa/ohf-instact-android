@@ -161,9 +161,9 @@ public class P2pKitDataProvider {
                     Contact contact = new Contact(info, "xing", peer.getNodeId().toString());
                     if(Contact.get(peer.getNodeId().toString())==null) {
                         contact.save();
-                        new sendInfos().execute(peer);
                         mConnectionListener.onNewContact(contact);
                     }
+                    new sendInfos().execute(peer);
                 }
 
               Log.d(TAG, "P2pListener | Peer discovered: " + peer.getNodeId() + " with info: " + info);

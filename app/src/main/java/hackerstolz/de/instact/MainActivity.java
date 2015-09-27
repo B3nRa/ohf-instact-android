@@ -1,5 +1,6 @@
 package hackerstolz.de.instact;
 
+import android.app.FragmentTransaction;
 import android.content.SyncStatusObserver;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 
 import com.astuetz.PagerSlidingTabStrip;
 
@@ -75,6 +77,17 @@ public class MainActivity extends AppCompatActivity {
         // Bind the tabs to the ViewPager
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabs.setViewPager(mViewPager);
+
+        Button button =(Button)findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                finish();
+                startActivity(getIntent());
+
+            }
+        });
 
         mConnectionListener = new P2pConnectionListener();
         p2pDataProvider = new P2pKitDataProvider(this, mConnectionListener);
@@ -211,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void dataSetChanged() {
-            List<Contact> contacts = new ArrayList<>();
+            /*List<Contact> contacts = new ArrayList<>();
             try {
                 contacts = Contact.getAll();
             } catch (Exception e) {
@@ -222,9 +235,10 @@ public class MainActivity extends AppCompatActivity {
                 for(PlaceholderFragment mFragment : mFragments) {
                     mFragment.mAdapter.clear();
                     mFragment.mAdapter = new ContactListView(contacts);
+                    mFragment.mAdapter.notifyDataSetChanged();
                     Log.d(TAG, "new adapter set");
-                }
-            }
+                }*/
+
         }
 
         @Override
