@@ -74,6 +74,7 @@ public class P2pKitDataProvider {
 
                 }
                 Log.d(TAG, "MessageListener | Message received: From=" + origin + " type=" + type + " message=" + new String(message).substring(0,new String(message).length()<30?new String(message).length():30));
+                mConnectionListener.dataSetChanged();
             }
         };
     }
@@ -95,6 +96,7 @@ public class P2pKitDataProvider {
                     addP2pListener();
                     setDiscoveryInfo();
                     mConnectionListener.onConnected();
+                    mConnectionListener.dataSetChanged();
                 }
 
                 @Override
@@ -165,7 +167,7 @@ public class P2pKitDataProvider {
                 }
 
               Log.d(TAG, "P2pListener | Peer discovered: " + peer.getNodeId() + " with info: " + info);
-
+                mConnectionListener.dataSetChanged();
             }
 
 
@@ -173,6 +175,7 @@ public class P2pKitDataProvider {
             @Override
             public void onPeerLost(final Peer peer) {
                 Log.d(TAG, "P2pListener | Peer lost: " + peer.getNodeId());
+                mConnectionListener.dataSetChanged();
             }
 
             @Override

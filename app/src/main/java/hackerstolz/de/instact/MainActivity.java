@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
      */
     ViewPager mViewPager;
 
-    private P2pKitDataProvider p2pDataProvider;
-
+    private static P2pKitDataProvider p2pDataProvider;
+    public static P2pConnectionListener mConnectionListener;
 
 
 
@@ -76,11 +76,10 @@ public class MainActivity extends AppCompatActivity {
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabs.setViewPager(mViewPager);
 
-        p2pDataProvider = new P2pKitDataProvider(this, new P2pConnectionListener());
+        mConnectionListener = new P2pConnectionListener();
+        p2pDataProvider = new P2pKitDataProvider(this, mConnectionListener);
 
         p2pDataProvider.init();
-
-
 
         setup();
     }
@@ -153,6 +152,8 @@ public class MainActivity extends AppCompatActivity {
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
+            mConnectionListener.setFragment(fragment);
+
             return fragment;
         }
 
@@ -192,28 +193,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public class P2pConnectionListener implements ConnectionListener {
-        private PlaceholderFragment mPlaceholderFragment;
+        P2pConnectionListener(){
+            mFragments = new ArrayList<>();
+        }
 
+        private List<PlaceholderFragment> mFragments;
 
-        P2pConnectionListener(){}
-
-        P2pConnectionListener(PlaceholderFragment fragment){
-            mPlaceholderFragment = fragment;
+        public void setFragment(PlaceholderFragment fragment) {
+            Log.d(TAG, "setting fragment");
+            mFragments.add(fragment);
         }
 
         @Override
         public void onNewContact(Contact contact){
-          /*  mPlaceholderFragment.mAdapter.clear();
-            mPlaceholderFragment.mAdapter.notifyDataSetChanged();
-            List<Contact> contacts = null;
+            dataSetChanged();
+        }
+
+        @Override
+        public void dataSetChanged() {
+            List<Contact> contacts = new ArrayList<>();
             try {
                 contacts = Contact.getAll();
             } catch (Exception e) {
-                System.err.println(e.getMessage());
-                contacts = new ArrayList<>();
+                Log.e(TAG, "Error on udate: " + e.getMessage());
             }
-            mPlaceholderFragment.mAdapter.addContacts(contacts);
-            mPlaceholderFragment.mAdapter.notifyDataSetChanged();*/
+
+            if(!mFragments.isEmpty()) {
+                for(PlaceholderFragment mFragment : mFragments) {
+                    mFragment.mAdapter.clear();
+                    mFragment.mAdapter = new ContactListView(contacts);
+                    Log.d(TAG, "new adapter set");
+                }
+            }
         }
 
         @Override

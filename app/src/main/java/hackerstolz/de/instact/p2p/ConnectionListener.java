@@ -8,4 +8,5 @@ import hackerstolz.de.instact.data.Contact;
 public interface ConnectionListener {
     void onConnected();
     void onNewContact(Contact contact);
+    void dataSetChanged();
 }
