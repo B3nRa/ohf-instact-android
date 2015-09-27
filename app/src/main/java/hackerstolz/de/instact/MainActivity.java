@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.astuetz.PagerSlidingTabStrip;
 
@@ -101,10 +102,12 @@ public class MainActivity extends AppCompatActivity {
             String eventName = intent.getStringExtra(EventListView.EVENT_NAME);
             String eventAddress = intent.getStringExtra(EventListView.EVENT_ADDRESS);
             if(eventName != null && !eventName.isEmpty()) {
-                // TODO: set event name
+                TextView tvMain = (TextView) toolbar.findViewById(R.id.toolbar_main_title);
+                tvMain.setText(eventName);
             }
             if(eventAddress != null && !eventAddress.isEmpty()) {
-                // TODO: set event address
+                TextView tvAddress = (TextView) toolbar.findViewById(R.id.toolbar_sub_title);
+                tvAddress.setText(eventAddress);
             }
         }
     }
