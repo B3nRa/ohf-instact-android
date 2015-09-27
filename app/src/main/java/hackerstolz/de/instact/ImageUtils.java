@@ -8,9 +8,13 @@ import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -90,5 +94,32 @@ public class ImageUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static String loadImageAsBase64(String fileName) {
+        String base64image = "";
+        String root = Environment.getExternalStorageDirectory().toString();
+        String path = root + "/netly_images" + fileName + ".jpg";
+        Bitmap bitmap;
+        File f = new File(path);
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        try {
+            bitmap = BitmapFactory.decodeStream(new FileInputStream(f), null, options);
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+            byte[] byteArray = byteArrayOutputStream.toByteArray();
+            base64image = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return base64image;
+    }
+
+    public static void saveImageAsBase64(String base64image, String fileName) {
+        byte[] imageAsBytes = Base64.decode(base64image.getBytes(), Base64.DEFAULT);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
+        saveUserImage(bitmap, fileName);
     }
 }
