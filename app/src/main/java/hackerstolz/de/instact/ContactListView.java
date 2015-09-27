@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.pkmmte.circularimageview.CircularImageView;
 
-import java.util.Arrays;
 import java.util.List;
 
 import hackerstolz.de.instact.data.Contact;
@@ -26,15 +25,16 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
     public ContactListView(List<Contact> contacts) {
         mContacts = contacts;
     }
-    public void clear(){
+
+    public void clear() {
         mContacts.clear();
     }
 
-    public void addContact(Contact contact){
+    public void addContact(Contact contact) {
         mContacts.add(contact);
     }
 
-    public void addContacts(List<Contact> contacts){
+    public void addContacts(List<Contact> contacts) {
         mContacts.addAll(contacts);
     }
 
@@ -57,7 +57,7 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
 
         List<String> labels = contact.labelList();
         LayoutInflater inflater = LayoutInflater.from(holder.mContext);
-        for(String label : labels) {
+        for (String label : labels) {
             TextView tv = (TextView) inflater.inflate(R.layout.tag_list_item, holder.tagRecyclerView, false);
             tv.setText(label);
             holder.tagRecyclerView.addView(tv, new FlowLayout.LayoutParams(10, 10));
@@ -71,10 +71,10 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
         // each data item is just a string in this case
         public TextView contactName;
         public CircularImageView contactImage;
-//        public LinearLayout tagRecyclerView;
+        //        public LinearLayout tagRecyclerView;
         public FlowLayout tagRecyclerView;
         public Context mContext;
-//        private LinearLayout.LayoutManager mLayoutManager;
+        //        private LinearLayout.LayoutManager mLayoutManager;
         public Contact contact;
 //        private LinearLayout.LayoutManager mLayoutManager;
 
@@ -88,17 +88,21 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
             mContext = v.getContext();
 
             CircularImageView imageView = (CircularImageView) v.findViewById(R.id.contact_img);
-            String p2pid = contact.p2pId;
-            String imageData = ImageUtils.loadImageAsBase64(p2pid);
-            byte[] imageAsBytes = Base64.decode(imageData.getBytes(), Base64.DEFAULT);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
-            imageView.setImageBitmap(bitmap);
+            String p2pid = "";
+            if (contact != null) {
+                p2pid = contact.p2pId;
+                String imageData = ImageUtils.loadImageAsBase64(p2pid);
+                byte[] imageAsBytes = Base64.decode(imageData.getBytes(), Base64.DEFAULT);
+                Bitmap bitmap = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
+                imageView.setImageBitmap(bitmap);
+            }
 
+            final String payLoadId = p2pid;
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(mContext, ProfileActivity.class);
-                    intent.putExtra(P2P_ID, contact.p2pId);
+                    intent.putExtra(P2P_ID, payLoadId);
                     mContext.startActivity(intent);
                 }
             });
@@ -115,7 +119,7 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
     // Create new views (invoked by the layout manager)
     @Override
     public ContactViewHolder onCreateViewHolder(ViewGroup parent,
-                                                   int viewType) {
+                                                int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.user_list_item, parent, false);
