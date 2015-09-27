@@ -1,6 +1,7 @@
 package hackerstolz.de.instact;
 
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.SyncStatusObserver;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
@@ -88,6 +89,18 @@ public class MainActivity extends AppCompatActivity {
         p2pDataProvider.init();
 
         setup();
+
+        Intent intent = getIntent();
+        if(intent != null) {
+            String eventName = intent.getStringExtra(EventListView.EVENT_NAME);
+            String eventAddress = intent.getStringExtra(EventListView.EVENT_ADDRESS);
+            if(eventName != null && !eventName.isEmpty()) {
+                // TODO: set event name
+            }
+            if(eventAddress != null && !eventAddress.isEmpty()) {
+                // TODO: set event address
+            }
+        }
     }
 
     @Override
