@@ -36,6 +36,7 @@ public class P2pKitDataProvider {
     private static final String P2P_KIT_APP_KEY = "eyJzaWduYXR1cmUiOiI0cDRjZzFqUENPQm1BRTFQTis3dm1PZjBiQ0hHU2lueVNWZEdaVlNSUTVPVzJMRENQMjA5S01YSzdueTJKdGRPRXVmc213MmVGZ3NrVEJXakFlM2F1eTdIQklNTXkrMC81RitwbTlBL0p5QjJhVkxmZEZNaEd3UWo2c3EyRDZ4dWRhUkdxODJzNkRaeDFWVnFHN3pwWlpKNHZMU2xrcUVTLytWUUtXWGE3ODA9IiwiYXBwSWQiOjEyNjAsInZhbGlkVW50aWwiOjE2Nzk0LCJhcHBVVVVJRCI6IkMxNzcxQThFLTk0ODYtNDNFRS05NTgxLThBMDUwMzZFMUY4RCJ9";
     private static final String TYPE_LABELS="LABELS";
     private static final String TYPE_IMAGE="IMAGE";
+    private static final String TYPE_NAME="NAME";
     private Context mContext;
     private static Gson gson = new Gson();
     private ConnectionListener mConnectionListener;
@@ -63,6 +64,18 @@ public class P2pKitDataProvider {
                                 if (!oldLabels.contains(label))
                                     l.save();
                             }
+                        }
+                    }catch (Exception e){
+                        Log.e(TAG,""+e.getMessage());
+                    }
+
+                }
+                if (type.equals( TYPE_NAME)) {
+
+                    try {
+                        Contact contact = Contact.get(origin.toString());
+                        if (contact!=null) {
+                            contact.name=new String(message);
                         }
                     }catch (Exception e){
                         Log.e(TAG,""+e.getMessage());
@@ -158,13 +171,21 @@ public class P2pKitDataProvider {
                 String info = "NO_INFO";
                 if (peer.getDiscoveryInfo() != null && peer.getDiscoveryInfo().length > 0) {
                     info = new String(peer.getDiscoveryInfo());
+                }
+
                     Contact contact = new Contact(info, "xing", peer.getNodeId().toString());
                     if(Contact.get(peer.getNodeId().toString())==null) {
                         contact.save();
                         mConnectionListener.onNewContact(contact);
+                    }else{
+                        if (!info.equals("NO_INFO")){
+                            Contact c = Contact.get(peer.getNodeId().toString());
+                            c.name = info;
+                            c.save();
+                        }
                     }
                     new sendInfos().execute(peer);
-                }
+                //}
 
               Log.d(TAG, "P2pListener | Peer discovered: " + peer.getNodeId() + " with info: " + info);
                 mConnectionListener.dataSetChanged();
@@ -207,6 +228,16 @@ public class P2pKitDataProvider {
         @Override
         protected String doInBackground(Peer... peers) {
             Peer peer=peers[0];
+
+            while (!KitClient.getInstance(mContext).getMessageServices().sendMessage(peer.getNodeId(),
+                    TYPE_NAME, Contact.get("ME").name.getBytes())){
+                Log.d(TAG,"labels where not send....wait 5 sec");
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
             String json = gson.toJson(Contact.get("ME").labelList());
 
             while (!KitClient.getInstance(mContext).getMessageServices().sendMessage(peer.getNodeId(),
