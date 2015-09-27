@@ -1,6 +1,7 @@
 package hackerstolz.de.instact;
 
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.SyncStatusObserver;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
@@ -22,6 +23,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.astuetz.PagerSlidingTabStrip;
 
@@ -88,25 +90,39 @@ public class MainActivity extends AppCompatActivity {
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabs.setViewPager(mViewPager);
 
-        Button button =(Button)findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                finish();
-                startActivity(getIntent());
-
-            }
-        });
-
         mConnectionListener = new P2pConnectionListener();
         p2pDataProvider = new P2pKitDataProvider(this, mConnectionListener);
 
         p2pDataProvider.init();
 
         setup();
+
+        Intent intent = getIntent();
+        if(intent != null) {
+            String eventName = intent.getStringExtra(EventListView.EVENT_NAME);
+            String eventAddress = intent.getStringExtra(EventListView.EVENT_ADDRESS);
+            if(eventName != null && !eventName.isEmpty()) {
+                TextView tvMain = (TextView) toolbar.findViewById(R.id.toolbar_main_title);
+                tvMain.setText(eventName);
+            }
+            if(eventAddress != null && !eventAddress.isEmpty()) {
+                TextView tvAddress = (TextView) toolbar.findViewById(R.id.toolbar_sub_title);
+                tvAddress.setText(eventAddress);
+            }
+        }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                finish();
+                startActivity(getIntent());
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
     private void setup() {
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = getWindow();
