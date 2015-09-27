@@ -210,7 +210,7 @@ public class P2pKitDataProvider {
                     TYPE_LABELS, json.getBytes())){
                 Log.d(TAG,"labels where not send....wait 5 sec");
                 try {
-                    Thread.sleep(5);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -220,7 +220,7 @@ public class P2pKitDataProvider {
                     TYPE_IMAGE, ImageUtils.loadImageAsBase64("ME").getBytes())){
                 Log.d(TAG,"image where not send....wait 5 sec");
                 try {
-                    Thread.sleep(5);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
