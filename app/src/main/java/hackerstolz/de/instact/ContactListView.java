@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import java.util.List;
 import hackerstolz.de.instact.data.Contact;
 
 public class ContactListView extends RecyclerView.Adapter<ContactListView.ContactViewHolder> {
+    public static final String TAG = ContactListView.class.getName();
     public static final String P2P_ID = "p2p_id";
     private List<Contact> mContacts;
 
@@ -55,6 +57,29 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
         holder.contact = contact;
         //TODO: add image here
 
+        String p2pid = "";
+        if (contact != null) {
+            p2pid = contact.p2pId;
+            Log.d(TAG, "loading image for: " + p2pid);
+            String imageData = ImageUtils.loadImageAsBase64(p2pid);
+            Log.d(TAG, "got data: " + imageData);
+            byte[] imageAsBytes = Base64.decode(imageData.getBytes(), Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
+            holder.contactImage.setImageBitmap(bitmap);
+        }
+
+        final String payLoadId = p2pid;
+        final Context context = holder.mContext;
+        holder.contactImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ProfileActivity.class);
+                intent.putExtra(P2P_ID, payLoadId);
+                context.startActivity(intent);
+            }
+        });
+
+
         List<String> labels = contact.labelList();
         LayoutInflater inflater = LayoutInflater.from(holder.mContext);
         for (String label : labels) {
@@ -86,26 +111,6 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
             contactImage = (CircularImageView) v.findViewById(R.id.contact_img);
             tagRecyclerView = (FlowLayout) v.findViewById(R.id.my_tag_recycler_view);
             mContext = v.getContext();
-
-            CircularImageView imageView = (CircularImageView) v.findViewById(R.id.contact_img);
-            String p2pid = "";
-            if (contact != null) {
-                p2pid = contact.p2pId;
-                String imageData = ImageUtils.loadImageAsBase64(p2pid);
-                byte[] imageAsBytes = Base64.decode(imageData.getBytes(), Base64.DEFAULT);
-                Bitmap bitmap = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
-                imageView.setImageBitmap(bitmap);
-            }
-
-            final String payLoadId = p2pid;
-            v.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(mContext, ProfileActivity.class);
-                    intent.putExtra(P2P_ID, payLoadId);
-                    mContext.startActivity(intent);
-                }
-            });
 
 //            tagRecyclerView.setHasFixedSize(true);
 //            mAdapter = new TagListView();
