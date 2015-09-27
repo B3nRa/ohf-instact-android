@@ -82,17 +82,6 @@ public class MainActivity extends AppCompatActivity {
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabs.setViewPager(mViewPager);
 
-        Button button =(Button)findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                finish();
-                startActivity(getIntent());
-
-            }
-        });
-
         mConnectionListener = new P2pConnectionListener();
         p2pDataProvider = new P2pKitDataProvider(this, mConnectionListener);
 
@@ -101,6 +90,17 @@ public class MainActivity extends AppCompatActivity {
         setup();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                finish();
+                startActivity(getIntent());
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
     private void setup() {
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = getWindow();
