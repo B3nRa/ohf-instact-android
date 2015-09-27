@@ -30,4 +30,6 @@
     <string name="common_friends_ex2">Benjamina Raethlein</string>
     <string name="common_friends_ex3">Natalia Karabosova</string>
     <string name="common_friends_ex4">Chuck Norris</string>
+
+    <string name="star_icon">&#xf005;</string>
 </resources>

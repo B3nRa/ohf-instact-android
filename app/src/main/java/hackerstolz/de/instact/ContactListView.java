@@ -2,7 +2,10 @@ package hackerstolz.de.instact;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,11 +87,18 @@ public class ContactListView extends RecyclerView.Adapter<ContactListView.Contac
             tagRecyclerView = (FlowLayout) v.findViewById(R.id.my_tag_recycler_view);
             mContext = v.getContext();
 
+            CircularImageView imageView = (CircularImageView) v.findViewById(R.id.contact_img);
+            String p2pid = contact.p2pId;
+            String imageData = ImageUtils.loadImageAsBase64(p2pid);
+            byte[] imageAsBytes = Base64.decode(imageData.getBytes(), Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
+            imageView.setImageBitmap(bitmap);
+
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(mContext, ProfileActivity.class);
-                    intent.putExtra(P2P_ID, contact.getId());
+                    intent.putExtra(P2P_ID, contact.p2pId);
                     mContext.startActivity(intent);
                 }
             });

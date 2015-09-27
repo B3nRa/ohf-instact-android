@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Log.d(TAG, "continue clicked");
                 extractAndSaveContactFromViews();
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                Intent intent = new Intent(LoginActivity.this, EventActivity.class);
                 LoginActivity.this.startActivity(intent);
             }
         });

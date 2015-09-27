@@ -1,6 +1,8 @@
 package hackerstolz.de.instact;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 
 import com.pkmmte.circularimageview.CircularImageView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,15 +28,36 @@ public class EventListView extends RecyclerView.Adapter<EventListView.EventViewH
             "IHK - Oktoberhackfest", "Refugee Hacks", "Burda Bootcamp"
     });
 
+    private List<String> eventAddresses = Arrays.asList(new String[]{
+       "IHK, Orleansstraße 10, Munich", "To be announced, Mannheim", "Bootcamp, Karlstraße 3, Munich"
+    });
+
     private List<String> eventDates = Arrays.asList(
       new String[]{
-              "24.12.2014", "28.04.2011", "22.03.2009"
+            "", "17", "22"
       }
     );
 
-    private List<String> images = Arrays.asList(new String[]{
+    private List<String> eventDatesBelow = Arrays.asList(
+            new String[]{
+                   "", "SEP", "OKT"
+            }
+    );
 
+    private List<String> images = Arrays.asList(new String[]{
+        "random_avatar_01", "random_avatar_02","random_avatar_03","random_avatar_04","random_avatar_05",
+            "random_avatar_06","random_avatar_07","random_avatar_08","random_avatar_09","random_avatar_10",
+            "random_avatar_11","random_avatar_12","random_avatar_13","random_avatar_14","random_avatar_15",
     });
+
+    private List<String> numberMembers = Arrays.asList(new String[]{
+            "ic_person_outline_black_01", "ic_person_outline_black_02", "ic_person_outline_black_03"
+    });
+
+    private List<String> numberMembersPlain = Arrays.asList(new String[]{
+            "+17", "+42", "+74"
+    });
+
 
     public EventListView(){
 
@@ -47,7 +71,7 @@ public class EventListView extends RecyclerView.Adapter<EventListView.EventViewH
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mEvents.size();
+        return eventNames.size();
     }
 
 
@@ -58,17 +82,48 @@ public class EventListView extends RecyclerView.Adapter<EventListView.EventViewH
         // - replace the contents of the view with that element
 //        Meeting event = mEvents.get(position);
         holder.mEventName.setText(eventNames.get(position));
-        holder.mDate.setText(eventDates.get(position));
+        if(position == 0){
+            Typeface font = Typeface.createFromAsset(holder.mContext.getApplicationContext().getAssets(), "fontawesome-webfont.ttf");
+            holder.mDate.setTypeface(font);
+            holder.mDate.setText(R.string.star_icon);
+            holder.mDateBelow.setText("NOW");
+        }
+        else {
+            holder.mDate.setText(eventDates.get(position));
+            holder.mDateBelow.setText(eventDatesBelow.get(position));
+        }
+//        Typeface font = Typeface.createFromAsset(holder.mContext.getApplicationContext().getAssets(), "fontawesome-webfont.ttf");
+//        holder.mDate.setTypeface(font);
+//        holder.mDate.setText(R.string.star_icon);
+        holder.mEventAddress.setText(eventAddresses.get(position));
 
-        int i = (int) (Math.random() * images.size());
 //        String img = images.get(i);
         LayoutInflater inflater = LayoutInflater.from(holder.mContext);
-        for(String image : images) {
+        int k = 0;
+        List<Integer> randoms = new ArrayList<>();
+        while(k < 5) {
+            int i = -1;
+            do {
+                 i = (int) (Math.random() * images.size());
+            }while (randoms.contains(i));
+            randoms.add(i);
+
+            String image = images.get(i);
             CircularImageView bv = (CircularImageView) inflater.inflate(R.layout.circular_image, holder.mContactImgWrapper, false);
-            int resID = holder.mContext.getResources().getIdentifier(image, "drawable", "hackerstolz.de");
+            int resID = holder.mContext.getApplicationContext().getResources().getIdentifier(image, "drawable", "hackerstolz.de.instact");
+//            bv.setBackgroundResource(resID);
             bv.setImageResource(resID);
-            holder.mContactImgWrapper.addView(bv, new FlowLayout.LayoutParams(10, 10));
+            holder.mContactImgWrapper.addView(bv);
+            k++;
         }
+
+        TextView numberMember = (TextView) inflater.inflate(R.layout.number_member_view_plain, holder.mContactImgWrapper, false);
+        numberMember.setText(numberMembersPlain.get(position));
+        holder.mContactImgWrapper.addView(numberMember);
+//        ImageView imageView = (ImageView) inflater.inflate(R.layout.number_member_view, holder.mContactImgWrapper, false);
+//        int resID = holder.mContext.getApplicationContext().getResources().getIdentifier(numberMembers.get(position), "drawable", "hackerstolz.de.instact");
+//        imageView.setImageResource(resID);
+//        holder.mContactImgWrapper.addView(imageView);
         //TODO: add image here
     }
 
@@ -80,6 +135,14 @@ public class EventListView extends RecyclerView.Adapter<EventListView.EventViewH
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.event_list_item, parent, false);
 
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                v.getContext().startActivity(intent);
+            }
+        });
+
         return new EventViewHolder(v);
     }
 
@@ -87,14 +150,18 @@ public class EventListView extends RecyclerView.Adapter<EventListView.EventViewH
 
         LinearLayout mContactImgWrapper;
         TextView mEventName;
+        TextView mEventAddress;
         TextView mDate;
+        TextView mDateBelow;
         Context mContext;
         
         public EventViewHolder(View v){
             super(v);
             mContactImgWrapper = (LinearLayout) v.findViewById(R.id.event_contact_images);
             mEventName = (TextView) v.findViewById(R.id.event_name);
+            mEventAddress = (TextView) v.findViewById(R.id.event_address);
             mDate = (TextView) v.findViewById(R.id.event_date);
+            mDateBelow = (TextView) v.findViewById(R.id.event_date_below);
             mContext = v.getContext();
         }
     }
