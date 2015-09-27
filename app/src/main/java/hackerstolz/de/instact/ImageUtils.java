@@ -63,6 +63,22 @@ public class ImageUtils {
         return srcBitmap;
     }
 
+    public static Bitmap shrinkBitmap(Bitmap oldBitmap) {
+        float aspectRatio = oldBitmap.getWidth() /
+                (float) oldBitmap.getHeight();
+
+        int width;
+        int height;
+        if (oldBitmap.getWidth() > oldBitmap.getHeight()) {
+            width = 250;
+            height = Math.round(width / aspectRatio);
+        } else {
+            height = 250;
+            width = Math.round(height * aspectRatio);
+        }
+        return Bitmap.createScaledBitmap(oldBitmap, width, height, false);
+    }
+
     public static int getOrientation(Context context, Uri photoUri) {
     /* it's on the external media. */
         Cursor cursor = context.getContentResolver().query(photoUri,
@@ -77,7 +93,7 @@ public class ImageUtils {
     }
 
     public static void saveUserImage(Bitmap bitmap, String fileName) {
-        if(bitmap == null || fileName == null) {
+        if (bitmap == null || fileName == null) {
             return;
         }
         String root = Environment.getExternalStorageDirectory().toString();
@@ -109,7 +125,7 @@ public class ImageUtils {
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
         try {
             bitmap = BitmapFactory.decodeStream(new FileInputStream(f), null, options);
-            if(bitmap == null) {
+            if (bitmap == null) {
                 return base64image;
             }
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
