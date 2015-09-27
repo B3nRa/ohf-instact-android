@@ -99,7 +99,7 @@ public class ImageUtils {
     public static String loadImageAsBase64(String fileName) {
         String base64image = "";
         String root = Environment.getExternalStorageDirectory().toString();
-        String path = root + "/netly_images" + fileName + ".jpg";
+        String path = root + "/netly_images/" + fileName + ".jpg";
         Bitmap bitmap;
         File f = new File(path);
         BitmapFactory.Options options = new BitmapFactory.Options();
