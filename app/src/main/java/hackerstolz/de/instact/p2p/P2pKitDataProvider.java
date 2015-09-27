@@ -71,7 +71,7 @@ public class P2pKitDataProvider {
                    ImageUtils.saveImageAsBase64(new String(message),origin.toString());
 
                 }
-                Log.d(TAG, "MessageListener | Message received: From=" + origin + " type=" + type + " message=" + new String(message));
+                Log.d(TAG, "MessageListener | Message received: From=" + origin + " type=" + type + " message=" + new String(message).substring(0,30));
             }
         };
     }
@@ -147,6 +147,10 @@ public class P2pKitDataProvider {
 
             @Override
             public void onPeerDiscovered(final Peer peer) {
+                updateData(peer);
+            }
+
+            private void updateData(final Peer peer){
                 String info = "NO_INFO";
                 if (peer.getDiscoveryInfo() != null && peer.getDiscoveryInfo().length > 0) {
                     info = new String(peer.getDiscoveryInfo());
@@ -160,10 +164,11 @@ public class P2pKitDataProvider {
                 boolean forwarded = KitClient.getInstance(mContext).getMessageServices().sendMessage(peer.getNodeId(),
                         TYPE_LABELS, json.getBytes());
                 Log.d(TAG, "P2pListener | labels send: " + json + " to: " + peer.getNodeId() + " success: " + forwarded);
-                 forwarded = KitClient.getInstance(mContext).getMessageServices().sendMessage(peer.getNodeId(),
+                forwarded = KitClient.getInstance(mContext).getMessageServices().sendMessage(peer.getNodeId(),
                         TYPE_IMAGE, ImageUtils.loadImageAsBase64("ME").getBytes());
-                Log.d(TAG, "P2pListener | image send: " + ImageUtils.loadImageAsBase64("ME") + " to: " + peer.getNodeId() + " success: " + forwarded);
+                Log.d(TAG, "P2pListener | image send: " + ImageUtils.loadImageAsBase64("ME").substring(0,30) + " to: " + peer.getNodeId() + " success: " + forwarded);
                 Log.d(TAG, "P2pListener | Peer discovered: " + peer.getNodeId() + " with info: " + info);
+
             }
 
             @Override
@@ -178,6 +183,7 @@ public class P2pKitDataProvider {
                     info = new String(peer.getDiscoveryInfo());
                 }
                 Log.d(TAG, "P2pListener | Peer updated: " + peer.getNodeId() + " with new info: " + info);
+                updateData(peer);
             }
         });
         KitClient.getInstance(mContext).getMessageServices().addListener(mMessageListener);
@@ -185,7 +191,7 @@ public class P2pKitDataProvider {
 
     private void setDiscoveryInfo() {
         try {
-            KitClient.getInstance(mContext).getDiscoveryServices().setP2pDiscoveryInfo(("P2P"+Contact.get("ME").name).getBytes());
+            KitClient.getInstance(mContext).getDiscoveryServices().setP2pDiscoveryInfo((""+Contact.get("ME").name).getBytes());
         } catch (InfoTooLongException e) {
             Log.d(TAG, "P2pListener | The discovery info is too long");
         }
