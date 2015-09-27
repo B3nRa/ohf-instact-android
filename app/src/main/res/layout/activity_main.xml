@@ -2,19 +2,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <com.astuetz.PagerSlidingTabStrip
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="48dip"
         android:background="@color/primaryDark"
-        app:pstsShouldExpand="true"
+        android:elevation="20px"
+        android:textColor="#FFFFFF"
         app:pstsIndicatorColor="@color/secondary_color"
         app:pstsIndicatorHeight="10px"
-        android:textColor="#FFFFFF"
-        android:elevation="20px"/>
+        app:pstsShouldExpand="true" />
+
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
@@ -23,8 +23,29 @@
         android:layout_below="@+id/tabs"
         tools:context=".MainActivity">
 
-        </android.support.v4.view.ViewPager>
+    </android.support.v4.view.ViewPager>
 
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/event_detail_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="IHK Oktoberfest"
+            android:textColor="@color/text_color"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/event_detail_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="IHK Oktoberfest"
+            android:textColor="@color/text_color"
+            android:textSize="12dp" />
+    </RelativeLayout>
 </RelativeLayout>
 
     <!--<android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"--><!--xmlns:tools="http://schemas.android.com/tools" android:id="@+id/pager"--><!--android:layout_width="match_parent" android:layout_height="match_parent"--><!--tools:context="hackerstolz.de.instact.Main2Activity">-->
