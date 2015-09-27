@@ -24,7 +24,7 @@
             android:background="@color/secondary_color">
 
             <TextView
-                android:id="@id/event_date"
+                android:id="@+id/event_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 

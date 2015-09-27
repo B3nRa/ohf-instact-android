@@ -1,16 +1,11 @@
 package hackerstolz.de.instact;
 
 import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -51,16 +46,16 @@ public class ProfileActivity extends AppCompatActivity {
 
         LayoutInflater inflater = LayoutInflater.from(this);
         int i = 0;
-        for(String tag : tags) {
+        for (String tag : tags) {
             TextView tv = (TextView) inflater.inflate(R.layout.tag_list_item, flowLayout, false);
             tv.setText(tag);
-            if((i % 2) == 0) {
+            if ((i % 2) == 0) {
                 GradientDrawable drawable = (GradientDrawable) tv.getBackground();
 //                drawable.setStroke(1, getResources().getColor(R.color.secondary_color));
                 drawable.setStroke(1, Color.TRANSPARENT);
                 drawable.setColor(getResources().getColor(R.color.secondary_color_transparent));
             } else {
-                GradientDrawable drawable = (GradientDrawable)tv.getBackground();
+                GradientDrawable drawable = (GradientDrawable) tv.getBackground();
                 drawable.setStroke(1, Color.DKGRAY);
                 drawable.setColor(Color.TRANSPARENT);
             }
