@@ -39,7 +39,8 @@
         android:layout_marginLeft="64dp"
         android:maxLines="1"
         android:hint="@string/username_hint"
-        android:layout_below="@id/add_user_avatar" />
+        android:layout_below="@id/add_user_avatar"
+        android:singleLine="true" />
 
     <EditText
         android:id="@+id/edittext_tags"
@@ -50,7 +51,8 @@
         android:layout_marginLeft="64dp"
         android:maxLines="1"
         android:hint="@string/tags_hint"
-        android:layout_below="@id/edittext_username" />
+        android:layout_below="@id/edittext_username"
+        android:singleLine="true" />
 
     <ImageButton
         android:src="@drawable/linkedin_button"
