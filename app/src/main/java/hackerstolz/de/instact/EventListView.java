@@ -114,6 +114,16 @@ public class EventListView extends RecyclerView.Adapter<EventListView.EventViewH
 //            bv.setBackgroundResource(resID);
             bv.setImageResource(resID);
             holder.mContactImgWrapper.addView(bv);
+
+            final Context context = holder.mContext;
+            bv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, ProfileActivity.class);
+                    context.startActivity(intent);
+                }
+            });
+
             k++;
         }
 
