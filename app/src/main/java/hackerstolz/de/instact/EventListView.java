@@ -1,10 +1,12 @@
 package hackerstolz.de.instact;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -40,6 +42,10 @@ public class EventListView extends RecyclerView.Adapter<EventListView.EventViewH
         "random_avatar_01", "random_avatar_02","random_avatar_03","random_avatar_04","random_avatar_05",
             "random_avatar_06","random_avatar_07","random_avatar_08","random_avatar_09","random_avatar_10",
             "random_avatar_11","random_avatar_12","random_avatar_13","random_avatar_14","random_avatar_15",
+    });
+
+    private List<String> numberMembers = Arrays.asList(new String[]{
+            "ic_person_outline_black_01", "ic_person_outline_black_02", "ic_person_outline_black_03"
     });
 
     public EventListView(){
@@ -87,6 +93,11 @@ public class EventListView extends RecyclerView.Adapter<EventListView.EventViewH
             holder.mContactImgWrapper.addView(bv);
             k++;
         }
+
+//        ImageView imageView = (ImageView) inflater.inflate(R.layout.number_member_view, holder.mContactImgWrapper, false);
+//        int resID = holder.mContext.getApplicationContext().getResources().getIdentifier(numberMembers.get(position), "drawable", "hackerstolz.de.instact");
+//        imageView.setImageResource(resID);
+//        holder.mContactImgWrapper.addView(imageView);
         //TODO: add image here
     }
 
@@ -97,6 +108,14 @@ public class EventListView extends RecyclerView.Adapter<EventListView.EventViewH
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.event_list_item, parent, false);
+
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                v.getContext().startActivity(intent);
+            }
+        });
 
         return new EventViewHolder(v);
     }
