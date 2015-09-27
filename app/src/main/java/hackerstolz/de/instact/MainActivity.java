@@ -184,8 +184,8 @@ public class MainActivity extends AppCompatActivity {
                 contacts = new ArrayList<>();
             }
             mAdapter = new ContactListView(contacts);
-            mRecyclerView.setAdapter(mAdapter);
 
+            mRecyclerView.setAdapter(mAdapter);
 
             return rootView;
         }

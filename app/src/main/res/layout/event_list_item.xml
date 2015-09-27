@@ -17,25 +17,46 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@color/secondary_color"
-            android:padding="@dimen/content_padding_normal"
+            android:paddingTop="@dimen/content_padding_normal"
+            android:paddingBottom="@dimen/content_padding_normal"
+            android:paddingRight="@dimen/content_padding_normal"
+            android:paddingLeft="5dp"
             android:textColor="@color/text_color">
 
-            <TextView
-                android:id="@+id/event_date"
+            <RelativeLayout
+                android:id="@+id/date_wrapper"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/content_padding_normal"
-                android:textColor="@color/text_color" />
+                android:layout_marginRight="30px"
+                android:layout_centerVertical="true">
+                <TextView
+                    android:id="@+id/event_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:layout_marginRight="@dimen/content_padding_normal"
+                    android:textColor="@color/text_color"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="14dp"/>
+
+                <TextView
+                    android:id="@+id/event_date_below"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/content_padding_normal"
+                    android:layout_below="@+id/event_date"
+                    android:textColor="@color/text_color"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="14dp"/>
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/event_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="3px"
-                android:layout_marginTop="2dp"
-                android:layout_toEndOf="@+id/event_date"
-                android:layout_toRightOf="@+id/event_date"
+                android:layout_toEndOf="@+id/date_wrapper"
+                android:layout_toRightOf="@+id/date_wrapper"
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:textColor="@color/text_color"
@@ -46,8 +67,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/event_name"
-                android:layout_toEndOf="@+id/event_date"
-                android:layout_toRightOf="@+id/event_date"
+                android:layout_toEndOf="@+id/date_wrapper"
+                android:layout_toRightOf="@+id/date_wrapper"
                 android:textColor="@color/text_color"
                 android:textSize="12dp" />
         </RelativeLayout>

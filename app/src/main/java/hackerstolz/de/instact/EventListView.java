@@ -2,11 +2,11 @@ package hackerstolz.de.instact;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -34,8 +34,14 @@ public class EventListView extends RecyclerView.Adapter<EventListView.EventViewH
 
     private List<String> eventDates = Arrays.asList(
       new String[]{
-             "27.09.2011",  "17.10.2015", "22.03.2009"
+            "", "17", "22"
       }
+    );
+
+    private List<String> eventDatesBelow = Arrays.asList(
+            new String[]{
+                   "", "SEP", "OKT"
+            }
     );
 
     private List<String> images = Arrays.asList(new String[]{
@@ -47,6 +53,11 @@ public class EventListView extends RecyclerView.Adapter<EventListView.EventViewH
     private List<String> numberMembers = Arrays.asList(new String[]{
             "ic_person_outline_black_01", "ic_person_outline_black_02", "ic_person_outline_black_03"
     });
+
+    private List<String> numberMembersPlain = Arrays.asList(new String[]{
+            "+17", "+42", "+74"
+    });
+
 
     public EventListView(){
 
@@ -71,7 +82,19 @@ public class EventListView extends RecyclerView.Adapter<EventListView.EventViewH
         // - replace the contents of the view with that element
 //        Meeting event = mEvents.get(position);
         holder.mEventName.setText(eventNames.get(position));
-        holder.mDate.setText(eventDates.get(position));
+        if(position == 0){
+            Typeface font = Typeface.createFromAsset(holder.mContext.getApplicationContext().getAssets(), "fontawesome-webfont.ttf");
+            holder.mDate.setTypeface(font);
+            holder.mDate.setText(R.string.star_icon);
+            holder.mDateBelow.setText("NOW");
+        }
+        else {
+            holder.mDate.setText(eventDates.get(position));
+            holder.mDateBelow.setText(eventDatesBelow.get(position));
+        }
+//        Typeface font = Typeface.createFromAsset(holder.mContext.getApplicationContext().getAssets(), "fontawesome-webfont.ttf");
+//        holder.mDate.setTypeface(font);
+//        holder.mDate.setText(R.string.star_icon);
         holder.mEventAddress.setText(eventAddresses.get(position));
 
 //        String img = images.get(i);
@@ -94,6 +117,9 @@ public class EventListView extends RecyclerView.Adapter<EventListView.EventViewH
             k++;
         }
 
+        TextView numberMember = (TextView) inflater.inflate(R.layout.number_member_view_plain, holder.mContactImgWrapper, false);
+        numberMember.setText(numberMembersPlain.get(position));
+        holder.mContactImgWrapper.addView(numberMember);
 //        ImageView imageView = (ImageView) inflater.inflate(R.layout.number_member_view, holder.mContactImgWrapper, false);
 //        int resID = holder.mContext.getApplicationContext().getResources().getIdentifier(numberMembers.get(position), "drawable", "hackerstolz.de.instact");
 //        imageView.setImageResource(resID);
@@ -126,6 +152,7 @@ public class EventListView extends RecyclerView.Adapter<EventListView.EventViewH
         TextView mEventName;
         TextView mEventAddress;
         TextView mDate;
+        TextView mDateBelow;
         Context mContext;
         
         public EventViewHolder(View v){
@@ -134,6 +161,7 @@ public class EventListView extends RecyclerView.Adapter<EventListView.EventViewH
             mEventName = (TextView) v.findViewById(R.id.event_name);
             mEventAddress = (TextView) v.findViewById(R.id.event_address);
             mDate = (TextView) v.findViewById(R.id.event_date);
+            mDateBelow = (TextView) v.findViewById(R.id.event_date_below);
             mContext = v.getContext();
         }
     }
